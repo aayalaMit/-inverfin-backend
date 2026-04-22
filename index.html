@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Ventas Inverfin</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#0a0a1a;color:#eee;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:16px}
+h1{color:#ff7a00;font-size:1.3rem;margin-bottom:2px;text-align:center}
+.subtitle{color:#888;font-size:.75rem;margin-bottom:14px;text-align:center}
+
+/* API KEY MODAL */
+#api-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:999}
+.modal-box{background:#12122a;border:1px solid #ff7a00;border-radius:16px;padding:28px 24px;max-width:400px;width:90%;text-align:center}
+.modal-box h2{color:#ff7a00;font-size:1.1rem;margin-bottom:10px}
+.modal-box p{color:#aaa;font-size:.8rem;margin-bottom:16px;line-height:1.5}
+.modal-box input{width:100%;background:#0a0a1a;border:1px solid #444;border-radius:8px;color:#eee;padding:10px;font-size:.85rem;margin-bottom:12px;font-family:monospace}
+.modal-box input:focus{outline:none;border-color:#ff7a00}
+.modal-box .note{color:#666;font-size:.7rem;margin-top:10px}
+.key-status{display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:12px;font-size:.75rem;color:#888}
+.key-dot{width:8px;height:8px;border-radius:50%;background:#444}
+.key-dot.ok{background:#22c55e}
+
+.top-bar{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
+.badge{background:#1a1a2e;border:1px solid #333;border-radius:20px;padding:5px 12px;font-size:.75rem;color:#ccc}
+.badge span{color:#ff7a00;font-weight:bold}
+
+.product-card{background:#1a1a2e;border:1px solid #ff7a00;border-radius:12px;padding:10px 14px;margin-bottom:12px;display:flex;gap:10px;align-items:center;width:100%;max-width:680px}
+.product-icon{font-size:1.8rem}
+.product-name{font-weight:bold;color:#ff7a00;font-size:.85rem}
+.product-price{color:#4ecdc4;font-size:.95rem;font-weight:bold}
+.product-desc{color:#888;font-size:.7rem;margin-top:2px}
+
+.arena{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:680px}
+
+.avatar-wrap{display:flex;flex-direction:column;align-items:center;gap:4px}
+.avatar-ring{width:82px;height:82px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #333;background:#1a1a2e;transition:box-shadow .3s,border-color .3s}
+.avatar-ring.speaking-client{border-color:#3b82f6;animation:pulseBlue 1s infinite}
+.avatar-ring.speaking-seller{border-color:#22c55e;animation:pulseGreen 1s infinite}
+@keyframes pulseBlue{0%,100%{box-shadow:0 0 0 5px rgba(59,130,246,.25),0 0 18px rgba(59,130,246,.35)}50%{box-shadow:0 0 0 11px rgba(59,130,246,.12),0 0 28px rgba(59,130,246,.55)}}
+@keyframes pulseGreen{0%,100%{box-shadow:0 0 0 5px rgba(34,197,94,.25),0 0 18px rgba(34,197,94,.35)}50%{box-shadow:0 0 0 11px rgba(34,197,94,.12),0 0 28px rgba(34,197,94,.55)}}
+.avatar-face{font-size:2.5rem;line-height:1}
+.avatar-label{font-size:.65rem;color:#888}
+.turn-indicator{font-size:.72rem;color:#aaa;text-align:center;min-height:16px}
+
+.voice-bar{display:flex;align-items:center;gap:8px;font-size:.72rem;color:#888;margin-top:2px}
+.voice-btn{background:transparent;border:1px solid #444;border-radius:20px;color:#888;padding:3px 10px;cursor:pointer;font-size:.7rem;transition:all .2s}
+.voice-btn.active{border-color:#3b82f6;color:#3b82f6}
+.voice-btn:hover{border-color:#ff7a00;color:#ff7a00}
+
+.chat-box{background:#0d0d1f;border:1px solid #1e1e3a;border-radius:12px;padding:10px;width:100%;max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:7px}
+.msg{padding:7px 11px;border-radius:9px;font-size:.82rem;line-height:1.5;max-width:88%}
+.msg.client{background:#111d35;border-left:3px solid #3b82f6;align-self:flex-start}
+.msg.seller{background:#0f2a1a;border-left:3px solid #22c55e;align-self:flex-end;text-align:right}
+.msg.system{background:#1e1a0a;border-left:3px solid #ff7a00;align-self:center;text-align:center;font-style:italic;color:#ff7a00;font-size:.76rem;max-width:100%}
+.msg.eval{background:#12122a;border:1px solid #ff7a00;align-self:center;width:100%;border-radius:12px}
+
+.input-area{display:flex;gap:7px;width:100%}
+.input-area textarea{flex:1;background:#0d0d1f;border:1px solid #2a2a4a;border-radius:9px;color:#eee;padding:9px;font-size:.82rem;resize:none;font-family:Arial,sans-serif}
+.input-area textarea:focus{outline:none;border-color:#ff7a00}
+.btn{background:#ff7a00;color:#fff;border:none;border-radius:9px;padding:9px 14px;cursor:pointer;font-size:.82rem;font-weight:bold;transition:background .2s;white-space:nowrap}
+.btn:hover{background:#e06800}
+.btn:disabled{background:#333;cursor:not-allowed;color:#666}
+.btn-outline{background:transparent;border:1px solid #444;color:#888;border-radius:9px;padding:7px 12px;cursor:pointer;font-size:.72rem;transition:all .2s}
+.btn-outline:hover{border-color:#ff7a00;color:#ff7a00}
+.controls{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
+
+.score-bar{width:100%;padding:4px}
+.score-title{color:#ff7a00;font-weight:bold;font-size:.88rem;margin-bottom:8px;text-align:center}
+.score-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #1e1e3a;font-size:.78rem}
+.score-row:last-of-type{border-bottom:none;font-weight:bold;margin-top:4px;font-size:.85rem}
+.score-num{color:#4ecdc4;font-weight:bold}
+.face{font-size:2.2rem;text-align:center;margin:6px 0}
+
+.commands-box{background:#12122a;border:1px solid #2a2a4a;border-radius:12px;padding:12px;width:100%;max-width:680px;font-size:.78rem;margin-top:10px}
+.commands-box h3{color:#ff7a00;margin-bottom:7px;font-size:.82rem}
+.cmd{display:inline-block;background:#0a0a2e;border:1px solid #ff7a00;color:#ff7a00;border-radius:5px;padding:3px 8px;margin:3px;cursor:pointer;font-size:.72rem}
+.cmd:hover{background:#ff7a00;color:#fff}
+</style>
+</head>
+<body>
+<h1>🧡 Simulador de Ventas Inverfin</h1>
+<p class="subtitle">Entrenamiento interactivo con cliente simulado por IA</p>
+
+
+
+<div class="top-bar">
+  <div class="badge">Escenario <span id="scen-num">-</span>/3</div>
+  <div class="badge">Pregunta <span id="q-num">-</span>/3</div>
+  <div class="badge">Intercambio <span id="inter-num">-</span></div>
+  <div class="badge">Puntaje <span id="cur-score">0</span>/100</div>
+
+</div>
+
+<div id="product-card" class="product-card" style="display:none">
+  <div class="product-icon" id="prod-icon">📦</div>
+  <div class="product-info">
+    <div class="product-name" id="prod-name">-</div>
+    <div class="product-price" id="prod-price">-</div>
+    <div class="product-desc" id="prod-desc">-</div>
+  </div>
+</div>
+
+<div class="arena">
+  <div class="avatar-wrap">
+    <div class="avatar-ring" id="avatar-ring">
+      <div class="avatar-face">🤖</div>
+    </div>
+    <div class="avatar-label" id="avatar-label">Cliente simulado</div>
+    <div class="turn-indicator" id="turn-indicator">Iniciá una sesión para comenzar</div>
+    <div class="voice-bar">
+      <span>Voz:</span>
+      <button class="voice-btn" id="voice-toggle" onclick="toggleVoice()">🔊 Activada</button>
+      <span id="voice-lang-label" style="color:#555"></span>
+    </div>
+  </div>
+
+  <div class="chat-box" id="chat-box">
+    <div class="msg system">¡Bienvenido al simulador de ventas Inverfin! Presioná "Iniciar sesión" para comenzar.</div>
+  </div>
+
+  <div class="input-area">
+    <textarea id="seller-input" rows="2" placeholder="Tu respuesta como vendedor... (Enter para enviar)" disabled></textarea>
+    <button class="btn" id="send-btn" onclick="sendSeller()" disabled>Enviar</button>
+  </div>
+
+  <div class="controls">
+    <button class="btn" onclick="startSession()">▶ Iniciar sesión</button>
+    <button class="btn-outline" onclick="closeScenario()">⏭ Cerrar escenario</button>
+    <button class="btn-outline" onclick="resetSession()">🔄 Reiniciar</button>
+    <button class="btn-outline" onclick="toggleCommands()">❓ Comandos</button>
+  </div>
+</div>
+
+<div id="commands-box" class="commands-box" style="display:none">
+  <h3>Comandos disponibles</h3>
+  <span class="cmd" onclick="startSession()">▶ Iniciar sesión</span>
+  <span class="cmd" onclick="closeScenario()">⏭ Cerrar escenario + evaluación</span>
+  <span class="cmd" onclick="resetSession()">🔄 Reiniciar todo</span>
+  <span class="cmd" onclick="toggleVoice()">🔊 Activar/desactivar voz</span>
+  <span class="cmd" onclick="changeKey()">🔑 Cambiar API key</span>
+  <p style="color:#555;margin-top:8px;font-size:.72rem">Escribí tu respuesta y presioná Enter o el botón Enviar. Cada escenario tiene 3 preguntas con hasta 3 intercambios cada una. La voz del cliente usa Web Speech API (gratis, sin costo).</p>
+</div>
+
+<script>
+const BACKEND_URL = https://inverfin-backend-production.up.railway.app/; // reemplazá con tu URL de Railway
+let voiceEnabled = true;
+let voices = [];
+let spanishVoice = null;
+let sessionActive = false;
+let currentScenarios = [];
+let currentScenIdx = 0;
+let currentQIdx = 0;
+let currentInteraction = 0;
+let scenarioConversation = [];
+let scores = [];
+let loading = false;
+let speaking = false;
+
+// ── VOICE SETUP ──────────────────────────────────────────
+function loadVoices() {
+  voices = window.speechSynthesis.getVoices();
+  spanishVoice = voices.find(v => v.lang.startsWith('es') && v.name.toLowerCase().includes('google'))
+    || voices.find(v => v.lang.startsWith('es-419'))
+    || voices.find(v => v.lang.startsWith('es'));
+  if(spanishVoice) document.getElementById('voice-lang-label').textContent = spanishVoice.name.split(' ')[0];
+}
+window.speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
+
+function speak(text) {
+  if(!voiceEnabled) return;
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  if(spanishVoice) utt.voice = spanishVoice;
+  utt.lang = 'es-419';
+  utt.rate = 0.92;
+  utt.pitch = 1.05;
+  utt.onend = () => { speaking = false; };
+  speaking = true;
+  window.speechSynthesis.speak(utt);
+}
+
+function toggleVoice() {
+  voiceEnabled = !voiceEnabled;
+  const btn = document.getElementById('voice-toggle');
+  btn.textContent = voiceEnabled ? '🔊 Activada' : '🔇 Desactivada';
+  btn.classList.toggle('active', voiceEnabled);
+  if(!voiceEnabled) window.speechSynthesis.cancel();
+}
+
+
+
+// ── SCENARIOS ─────────────────────────────────────────────
+const SCENARIOS = [
+  {icon:"📺",name:'Smart TV FAMA 32" LED Smart',price:"Gs. 955.000",desc:"Ahorro 46% · Cuotas disponibles",client:"Don Alberto, 52 años, fanático del fútbol pero indeciso sobre si realmente necesita smart TV",objection:"el precio le parece alto para una pantalla de 32 pulgadas"},
+  {icon:"❄️",name:"Heladera BEKO 250L RDSA280K30WN",price:"Gs. 2.395.000",desc:"Ahorro 26% · Tecnología NeoFrost antiescarcha",client:"Señora Rosa, 44 años, renovando cocina, compara marcas conocidas vs desconocidas",objection:"no conoce la marca BEKO y desconfía de su calidad"},
+  {icon:"🏍️",name:"Moto FAMA 150cc Ensamblada en Paraguay",price:"Gs. 8.500.000",desc:"Financiamiento en cuotas · Garantía local · Repuestos disponibles",client:"Carlos, 28 años, trabaja en delivery, necesita movilidad pero tiene presupuesto justo",objection:"le parece cara, evalúa comprar una moto usada"},
+  {icon:"🫧",name:"Lavarropas FAMA 7kg Automático",price:"Gs. 1.850.000",desc:"Programa rápido 15 min · Bajo consumo de agua",client:"Lorena, 32 años, recién casada, primera compra grande de electrodoméstico",objection:"no entiende la diferencia entre automático y semiautomático"},
+  {icon:"🌬️",name:"Aire Acondicionado FAMA Split 12000 BTU",price:"Gs. 3.200.000",desc:"Frío/calor · Bajo consumo A++ · Garantía 2 años",client:"Don Miguel, 60 años, dueño de una farmacia pequeña en el centro",objection:"duda si realmente lo necesita, cree que con ventiladores alcanza"},
+  {icon:"🖥️",name:'Monitor FAMA 24" Full HD IPS',price:"Gs. 680.000",desc:"Sin parpadeo · Ideal para home office y estudio",client:"Valentina, 25 años, trabaja desde casa como diseñadora freelance",objection:"cree que con la pantalla de su notebook es suficiente"},
+  {icon:"🍳",name:"Cocina a Gas FAMA 4 Hornallas con Horno",price:"Gs. 1.100.000",desc:"Encendido eléctrico · Parrilla incluida · Fácil limpieza",client:"Sra. Carmen, 50 años, remodeló su cocina y necesita todo nuevo",objection:"preferiría una cocina eléctrica por miedo a accidentes con gas"},
+  {icon:"🧊",name:"Freezer FAMA 200L Vertical",price:"Gs. 1.600.000",desc:"Control digital · Congelación rápida · Antiescarcha",client:"Pablo, 35 años, tiene una pequeña tienda de barrio con poca heladera",objection:"ya tiene heladera y duda si el freezer realmente le conviene"},
+  {icon:"📱",name:'Tablet FAMA 10" 4GB RAM 64GB',price:"Gs. 750.000",desc:"Android 13 · Batería 6000mAh · Pantalla IPS",client:"Doña Julia, 58 años, quiere hablar por videollamada con sus nietos en el exterior",objection:"le parece difícil de usar, prefiere un celular porque ya sabe usarlo"},
+  {icon:"🔊",name:"Equipo de Sonido FAMA 5000W con Karaoke",price:"Gs. 1.350.000",desc:"Bluetooth · LED multicolor · 2 micrófonos incluidos",client:"Ramón, 40 años, organiza fiestas y eventos sociales en su casa",objection:"tiene un equipo viejo que todavía funciona, no ve la necesidad de cambiar"},
+  {icon:"🪑",name:"Juego de Living 3+1+1 Tapizado Premium",price:"Gs. 2.800.000",desc:"Tela antimanchas · Varios colores · Entrega a domicilio",client:"Matrimonio joven que acaba de comprar su primera casa",objection:"creen que el precio es elevado y prefieren esperar una oferta especial"},
+  {icon:"🛏️",name:"Colchón Spring King Size Ortopédico",price:"Gs. 1.950.000",desc:"Resortes individuales · Garantía 5 años · Cubre laterales incluido",client:"Roberto, 45 años, tiene problemas de espalda y quiere dormir mejor",objection:"tiene colchón de espuma que le parece suficiente y no quiere gastar tanto"},
+  {icon:"🚿",name:"Calefón Eléctrico FAMA 20L Digital",price:"Gs. 480.000",desc:"Encendido inmediato · Pantalla digital temperatura · Bajo consumo",client:"Inquilino recién mudado a departamento sin agua caliente",objection:"le dijeron que el calefón eléctrico consume mucha electricidad"},
+  {icon:"🌀",name:'Ventilador de Pie FAMA 18" Control Remoto',price:"Gs. 180.000",desc:"3 velocidades · Temporizador · Oscilación automática",client:"Estudiante universitario que alquila una habitación y tiene presupuesto muy ajustado",objection:"considera comprar uno de segunda mano por la mitad del precio"},
+  {icon:"💡",name:"Microondas FAMA 20L Digital 8 Programas",price:"Gs. 390.000",desc:"8 programas automáticos · Descongelado rápido · Acero inoxidable interior",client:"Oficina de 10 personas que necesita microondas para el comedor del personal",objection:"dudan de la durabilidad de la marca FAMA para uso comercial intensivo"},
+];
+
+const QUESTIONS = [
+  "Saluda al vendedor con interés inicial pero mostrando dudas sobre si este producto es para vos.",
+  "Plantea claramente tu objeción principal sobre el producto.",
+  "Pregunta por las opciones de financiamiento y cuotas disponibles.",
+];
+
+// ── HELPERS ───────────────────────────────────────────────
+function pickScenarios() {
+  let pool=[...SCENARIOS], picked=[];
+  for(let i=0;i<3;i++){let idx=Math.floor(Math.random()*pool.length);picked.push(pool.splice(idx,1)[0]);}
+  return picked;
+}
+function updateUI() {
+  document.getElementById('scen-num').textContent = sessionActive ? currentScenIdx+1 : '-';
+  document.getElementById('q-num').textContent = sessionActive ? currentQIdx+1 : '-';
+  document.getElementById('inter-num').textContent = sessionActive ? currentInteraction : '-';
+  document.getElementById('cur-score').textContent = scores.reduce((a,b)=>a+b,0);
+}
+function addMsg(text, type) {
+  const box=document.getElementById('chat-box');
+  const d=document.createElement('div');
+  d.className='msg '+type;
+  d.innerHTML=text;
+  box.appendChild(d);
+  box.scrollTop=box.scrollHeight;
+  return d;
+}
+function setAvatar(state) {
+  const ring=document.getElementById('avatar-ring');
+  const ind=document.getElementById('turn-indicator');
+  ring.className='avatar-ring';
+  if(state==='client'){ring.classList.add('speaking-client');ind.textContent='🔵 Cliente hablando...';}
+  else if(state==='seller'){ring.classList.add('speaking-seller');ind.textContent='🟢 Tu turno — respondé al cliente';}
+  else ind.textContent='En espera...';
+}
+function showProduct(s) {
+  document.getElementById('prod-icon').textContent=s.icon;
+  document.getElementById('prod-name').textContent=s.name;
+  document.getElementById('prod-price').textContent=s.price;
+  document.getElementById('prod-desc').textContent=s.desc;
+  document.getElementById('product-card').style.display='flex';
+}
+function toggleCommands(){
+  const b=document.getElementById('commands-box');
+  b.style.display=b.style.display==='none'?'block':'none';
+}
+
+// ── API ───────────────────────────────────────────────────
+async function callClaude(messages, system) {
+  const resp = await fetch(BACKEND_URL + '/chat', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({messages, system})
+  });
+  const data = await resp.json();
+  if(data.error) throw new Error(data.error);
+  return data.text || '';
+}
+
+// ── SESSION ───────────────────────────────────────────────
+async function startSession() {
+
+  if(loading) return;
+  resetState();
+  sessionActive=true;
+  currentScenarios=pickScenarios();
+  scores=[];
+  document.getElementById('seller-input').disabled=false;
+  document.getElementById('send-btn').disabled=false;
+  document.getElementById('chat-box').innerHTML='';
+  addMsg('✅ Sesión iniciada — ¡Buena suerte, vendedor!','system');
+  await startScenario();
+}
+
+function resetState() {
+  sessionActive=false; currentScenIdx=0; currentQIdx=0; currentInteraction=0;
+  scenarioConversation=[]; scores=[]; loading=false;
+  setAvatar('idle'); updateUI();
+  window.speechSynthesis.cancel();
+}
+
+async function startScenario() {
+  if(currentScenIdx>=3){endSession();return;}
+  currentQIdx=0; currentInteraction=0; scenarioConversation=[];
+  const s=currentScenarios[currentScenIdx];
+  showProduct(s);
+  addMsg(`📦 <strong>Escenario ${currentScenIdx+1}/3 — ${s.name}</strong>`, 'system');
+  updateUI();
+  await nextQuestion();
+}
+
+async function nextQuestion() {
+  if(currentQIdx>=3){await evaluateScenario();return;}
+  currentInteraction=0;
+  const s=currentScenarios[currentScenIdx];
+  loading=true; setAvatar('client'); updateUI();
+  const system=`Sos un cliente simulado para entrenar vendedores de Inverfin Paraguay.
+Producto: ${s.name} (${s.price}).
+Tu perfil: ${s.client}.
+Tu objeción típica: ${s.objection}.
+Tarea ahora: ${QUESTIONS[currentQIdx]}
+Historial: ${JSON.stringify(scenarioConversation)}
+Respondé SOLO como cliente, 2-3 oraciones cortas en español paraguayo natural. No rompas el personaje.`;
+
+  try {
+    const msg=await callClaude([{role:'user',content:'Iniciá tu turno como cliente.'}],system);
+    scenarioConversation.push({rol:'cliente',texto:msg});
+    addMsg(`<strong>Cliente:</strong> ${msg}`,'client');
+    speak(msg);
+  } catch(e){ addMsg('⚠️ Error conectando con la API: '+e.message,'system'); }
+  
+  loading=false; setAvatar('seller'); currentInteraction=1; updateUI();
+}
+
+async function sendSeller() {
+  if(loading||!sessionActive) return;
+  const inp=document.getElementById('seller-input');
+  const text=inp.value.trim(); if(!text) return;
+  inp.value='';
+  window.speechSynthesis.cancel();
+  addMsg(`<strong>Vos (vendedor):</strong> ${text}`,'seller');
+  scenarioConversation.push({rol:'vendedor',texto:text});
+  setAvatar('client'); loading=true;
+  document.getElementById('send-btn').disabled=true;
+
+  const MAX=3;
+  const s=currentScenarios[currentScenIdx];
+
+  if(currentInteraction>=MAX) {
+    currentQIdx++; loading=false;
+    document.getElementById('send-btn').disabled=false;
+    await nextQuestion(); return;
+  }
+
+  const isLast=currentInteraction>=MAX-1;
+  const system=`Sos un cliente simulado para entrenar vendedores de Inverfin Paraguay.
+Producto: ${s.name} (${s.price}).
+Tu perfil: ${s.client}.
+Tu objeción típica: ${s.objection}.
+Historial completo: ${JSON.stringify(scenarioConversation)}
+Estás en el intercambio ${currentInteraction} de ${MAX} de la pregunta ${currentQIdx+1}.
+${isLast?'Este es el último intercambio de esta pregunta. Cerrá este tema de forma natural, con una reacción final breve.':'Continuá la conversación con una reacción natural y breve al último mensaje del vendedor.'}
+Respondé SOLO como cliente, 2-3 oraciones en español paraguayo. No rompas el personaje.`;
+
+  try {
+    const resp=await callClaude([{role:'user',content:'Respondé como cliente.'}],system);
+    scenarioConversation.push({rol:'cliente',texto:resp});
+    addMsg(`<strong>Cliente:</strong> ${resp}`,'client');
+    speak(resp);
+    currentInteraction++;
+    if(currentInteraction>=MAX){
+      currentQIdx++;
+      setTimeout(()=>nextQuestion(),900);
+    } else {
+      setAvatar('seller');
+    }
+  } catch(e){ addMsg('⚠️ Error: '+e.message,'system'); setAvatar('seller'); }
+  
+  loading=false; document.getElementById('send-btn').disabled=false; updateUI();
+}
+
+async function evaluateScenario() {
+  loading=true; setAvatar('idle');
+  addMsg('⏳ Evaluando tu desempeño en este escenario...','system');
+  const s=currentScenarios[currentScenIdx];
+  const system=`Sos un evaluador experto en ventas para Inverfin Paraguay.
+Evaluá la conversación del vendedor con el cliente.
+Producto: ${s.name} (${s.price}).
+Conversación: ${JSON.stringify(scenarioConversation)}
+Respondé SOLO con este JSON exacto sin texto adicional ni markdown:
+{"apertura":<0-20>,"descubrimiento":<0-20>,"propuesta":<0-20>,"objeciones":<0-25>,"cierre":<0-15>,"total":<0-100>,"feedback":"<2 oraciones de feedback concreto y constructivo en español>"}`;
+
+  let ev={apertura:10,descubrimiento:10,propuesta:10,objeciones:12,cierre:8,total:50,feedback:"No se pudo evaluar. Continuá."};
+  try {
+    const raw=await callClaude([{role:'user',content:'Evaluá ahora.'}],system);
+    ev=JSON.parse(raw.replace(/```json|```/g,'').trim());
+  } catch(e){}
+
+  scores.push(ev.total);
+  const face=ev.total>=80?'🙂':ev.total>=60?'😐':'😞';
+  const evalHtml=`<div class="score-bar">
+    <div class="score-title">📊 Evaluación — Escenario ${currentScenIdx+1}</div>
+    <div class="score-row"><span>Apertura y empatía</span><span class="score-num">${ev.apertura}/20</span></div>
+    <div class="score-row"><span>Descubrimiento de necesidades</span><span class="score-num">${ev.descubrimiento}/20</span></div>
+    <div class="score-row"><span>Propuesta de valor</span><span class="score-num">${ev.propuesta}/20</span></div>
+    <div class="score-row"><span>Manejo de objeciones</span><span class="score-num">${ev.objeciones}/25</span></div>
+    <div class="score-row"><span>Cierre y siguiente paso</span><span class="score-num">${ev.cierre}/15</span></div>
+    <div class="score-row"><span><strong>Total</strong></span><span class="score-num"><strong>${ev.total}/100</strong></span></div>
+    <div class="face">${face}</div>
+    <div style="color:#aaa;font-size:.77rem;text-align:center;margin-top:4px">💬 ${ev.feedback}</div>
+  </div>`;
+  addMsg(evalHtml,'eval');
+  loading=false; currentScenIdx++;
+  if(currentScenIdx<3){
+    addMsg(`➡️ Pasando al escenario ${currentScenIdx+1}/3...`,'system');
+    setTimeout(()=>startScenario(),1500);
+  } else { endSession(); }
+  updateUI();
+}
+
+function endSession() {
+  const avg=Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);
+  const face=avg>=80?'🙂':avg>=60?'😐':'😞';
+  const cat=avg>=80?'Excelente desempeño':avg>=60?'Desempeño aceptable':'Necesita mejorar';
+  const finalHtml=`<div class="score-bar">
+    <div class="score-title">🏆 Resultado Final de Sesión</div>
+    ${scores.map((s,i)=>`<div class="score-row"><span>Escenario ${i+1}</span><span class="score-num">${s}/100</span></div>`).join('')}
+    <div class="score-row"><span><strong>Promedio</strong></span><span class="score-num"><strong>${avg}/100</strong></span></div>
+    <div class="face">${face}</div>
+    <div style="color:#ff7a00;font-size:.88rem;text-align:center;font-weight:bold">${cat}</div>
+  </div>`;
+  addMsg(finalHtml,'eval');
+  addMsg('✅ Sesión completada. Presioná "Iniciar sesión" para una nueva ronda con escenarios diferentes.','system');
+  setAvatar('idle'); sessionActive=false;
+  document.getElementById('seller-input').disabled=true;
+  document.getElementById('send-btn').disabled=true;
+  document.getElementById('product-card').style.display='none';
+  updateUI();
+}
+
+async function closeScenario() {
+  if(!sessionActive||loading) return;
+  addMsg('⏭ Cerrando escenario actual...','system');
+  await evaluateScenario();
+}
+
+function resetSession() {
+  resetState();
+  document.getElementById('chat-box').innerHTML='';
+  addMsg('🔄 Sesión reiniciada. Presioná "Iniciar sesión" para comenzar.','system');
+  document.getElementById('product-card').style.display='none';
+  document.getElementById('seller-input').disabled=true;
+  document.getElementById('send-btn').disabled=true;
+}
+
+document.getElementById('seller-input').addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendSeller();}
+});
+</script>
+</body>
+</html>
