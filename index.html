@@ -143,11 +143,11 @@ h1{color:#ff7a00;font-size:1.2rem;margin-bottom:2px;text-align:center}
     <div class="msg system">¡Bienvenido! Soy ALFARO, tu entrenador de ventas Inverfin. Presioná "Iniciar sesión" para comenzar.</div>
   </div>
 
-  <div class="reply-area" id="reply-area">
-    <div class="reply-label">🟢 Tu turno — escribí tu respuesta como vendedor</div>
-    <div class="reply-row">
-      <textarea id="seller-input" rows="3" placeholder="Escribí acá tu respuesta..."></textarea>
-      <button class="send-btn" id="send-btn" onclick="sendSeller()">Enviar<br>▶</button>
+  <div id="reply-area" style="width:100%;display:none;flex-direction:column;gap:7px;margin-top:8px">
+    <div style="color:#22c55e;font-size:.82rem;text-align:center;font-weight:bold">🟢 Tu turno — escribí tu respuesta como vendedor</div>
+    <div style="display:flex;gap:7px">
+      <textarea id="seller-input" rows="3" style="flex:1;background:#0d2a1a;border:2px solid #22c55e;border-radius:9px;color:#eee;padding:9px;font-size:.85rem;resize:none;font-family:Arial,sans-serif" placeholder="Escribí acá tu respuesta..."></textarea>
+      <button id="send-btn" onclick="sendSeller()" style="background:#22c55e;color:#000;border:none;border-radius:9px;padding:0 16px;cursor:pointer;font-size:.85rem;font-weight:bold;min-width:70px">Enviar<br>▶</button>
     </div>
   </div>
 
@@ -320,12 +320,14 @@ function setAvatar(state){
 }
 
 function setReplyEnabled(on){
-  var area=document.getElementById('reply-area');
-  var inp=document.getElementById('seller-input');
-  var btn=document.getElementById('send-btn');
-  area.style.display=on?'flex':'none';
-  inp.disabled=!on;btn.disabled=!on;
-  if(on)setTimeout(function(){inp.focus();},100);
+  var area = document.getElementById('reply-area');
+  var inp = document.getElementById('seller-input');
+  var btn = document.getElementById('send-btn');
+  area.style.display = on ? 'flex' : 'none';
+  area.style.flexDirection = 'column';
+  if(inp) inp.disabled = !on;
+  if(btn) btn.disabled = !on;
+  if(on) setTimeout(function(){ if(inp) inp.focus(); }, 200);
 }
 
 function showProduct(s){
