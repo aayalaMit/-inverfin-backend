@@ -153,12 +153,44 @@ h1{color:#ff7a00;font-size:1.2rem;margin-bottom:2px;text-align:center}
 <script>
 var BACKEND = 'https://inverfin-backend-production.up.railway.app';
 
-// ── VOZ ──────────────────────────────────────────────────
-var vOn=true, sVoice=null, recog=null, recActive=false;
+// ── VOZ — compatible iPhone Safari ───────────────────────
+var vOn=true, sVoice=null, audioCtx=null, iosUnlocked=false;
+
+// Desbloquear AudioContext en iOS con el primer toque
+document.addEventListener('touchstart', function(){
+  if(!iosUnlocked){
+    iosUnlocked=true;
+    // Unlock speechSynthesis en iOS: hablar utterance vacía
+    var u=new SpeechSynthesisUtterance('');
+    window.speechSynthesis.speak(u);
+    // Unlock AudioContext
+    try{
+      audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+      var buf=audioCtx.createBuffer(1,1,22050);
+      var src=audioCtx.createBufferSource();
+      src.buffer=buf;src.connect(audioCtx.destination);src.start(0);
+    }catch(e){}
+  }
+}, false);
+
+// También desbloquear con click (desktop)
+document.addEventListener('click', function(){
+  if(!iosUnlocked){
+    iosUnlocked=true;
+    var u=new SpeechSynthesisUtterance('');
+    window.speechSynthesis.speak(u);
+  }
+}, false);
+
+var recog=null, recActive=false;
 
 function loadV(){
   var vs=window.speechSynthesis.getVoices();
-  sVoice=vs.find(function(v){return v.lang.startsWith('es')&&v.name.toLowerCase().includes('google');})||vs.find(function(v){return v.lang.startsWith('es');})||vs[0];
+  // En iOS las voces se llaman diferente
+  sVoice=vs.find(function(v){return v.lang.startsWith('es')&&(v.name.includes('Mónica')||v.name.includes('Monica')||v.name.includes('Paulina')||v.name.includes('Google'));})
+    ||vs.find(function(v){return v.lang.startsWith('es-419')||v.lang.startsWith('es-MX')||v.lang.startsWith('es-AR');})
+    ||vs.find(function(v){return v.lang.startsWith('es');})
+    ||vs[0];
 }
 window.speechSynthesis.onvoiceschanged=loadV; loadV();
 
@@ -197,12 +229,18 @@ function speak(txt,perf){
   if(!vOn)return;
   window.speechSynthesis.cancel();
   loadV();
-  var u=new SpeechSynthesisUtterance(cleanTTS(txt));
-  if(sVoice){u.voice=sVoice;u.lang=sVoice.lang;}else u.lang='es';
+  var clean=cleanTTS(txt);
+  // iOS necesita utterances cortas — dividir en oraciones
+  var parts=clean.match(/[^.!?]+[.!?]*/g)||[clean];
   var p={ama_casa:{rate:.88,pitch:1.2},agricultor:{rate:.82,pitch:.85},profesional:{rate:.95,pitch:1.05},comerciante:{rate:1.0,pitch:1.0},joven:{rate:1.05,pitch:1.15}}[perf]||{rate:.9,pitch:1};
-  u.rate=p.rate;u.pitch=p.pitch;u.volume=1;
-  u.onstart=function(){startM();};u.onend=u.onerror=function(){stopM();};
-  window.speechSynthesis.speak(u);
+  parts.forEach(function(part,i){
+    var u=new SpeechSynthesisUtterance(part.trim());
+    if(sVoice){u.voice=sVoice;u.lang=sVoice.lang;}else u.lang='es';
+    u.rate=p.rate;u.pitch=p.pitch;u.volume=1;
+    if(i===0)u.onstart=function(){startM();};
+    if(i===parts.length-1)u.onend=u.onerror=function(){stopM();};
+    window.speechSynthesis.speak(u);
+  });
 }
 function togV(){vOn=!vOn;var b=document.getElementById('vtb');b.textContent=vOn?'🔊 Act':'🔇 Des';b.classList.toggle('on',vOn);if(!vOn){window.speechSynthesis.cancel();stopM();}}
 function testV(){loadV();var u=new SpeechSynthesisUtterance('Hola soy ALFARO tu entrenador de ventas Inverfin');if(sVoice){u.voice=sVoice;u.lang=sVoice.lang;}u.rate=.9;u.volume=1;u.onstart=startM;u.onend=stopM;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
