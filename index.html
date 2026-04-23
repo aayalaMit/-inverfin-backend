@@ -389,6 +389,7 @@ function startSession(){
   scenConv=[];scores=[];
   window.speechSynthesis.cancel();stopMouth();
   setAvatar('idle');updateUI();
+  setReplyEnabled(false);
   currentScenarios=pickScenarios();
   sessionActive=true;
   document.getElementById('chat-box').innerHTML='';
