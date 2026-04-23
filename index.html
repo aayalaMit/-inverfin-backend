@@ -323,8 +323,11 @@ function setReplyEnabled(on){
   var area = document.getElementById('reply-area');
   var inp = document.getElementById('seller-input');
   var btn = document.getElementById('send-btn');
-  area.style.display = on ? 'flex' : 'none';
-  area.style.flexDirection = 'column';
+  if(on){
+    area.style.cssText = 'width:100%;display:flex;flex-direction:column;gap:7px;margin-top:8px';
+  } else {
+    area.style.cssText = 'width:100%;display:none;flex-direction:column;gap:7px;margin-top:8px';
+  }
   if(inp) inp.disabled = !on;
   if(btn) btn.disabled = !on;
   if(on) setTimeout(function(){ if(inp) inp.focus(); }, 200);
