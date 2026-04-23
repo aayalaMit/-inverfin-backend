@@ -143,11 +143,11 @@ h1{color:#ff7a00;font-size:1.2rem;margin-bottom:2px;text-align:center}
     <div class="msg system">¡Bienvenido! Soy ALFARO, tu entrenador de ventas Inverfin. Presioná "Iniciar sesión" para comenzar.</div>
   </div>
 
-  <div id="reply-area" style="width:100%;flex-direction:column;gap:7px;margin-top:8px;display:flex">
-    <div id="reply-label" style="color:#555;font-size:.82rem;text-align:center;font-weight:bold">⏳ Esperá la respuesta del cliente...</div>
+  <div style="width:100%;margin-top:8px">
+    <div id="reply-label" style="color:#555;font-size:.82rem;text-align:center;font-weight:bold;margin-bottom:6px">⏳ Esperá la respuesta del cliente...</div>
     <div style="display:flex;gap:7px">
-      <textarea id="seller-input" rows="3" disabled style="flex:1;background:#111;border:2px solid #333;border-radius:9px;color:#aaa;padding:9px;font-size:.85rem;resize:none;font-family:Arial,sans-serif" placeholder="Esperá que el cliente hable..."></textarea>
-      <button id="send-btn" onclick="sendSeller()" disabled style="background:#333;color:#666;border:none;border-radius:9px;padding:0 16px;cursor:not-allowed;font-size:.85rem;font-weight:bold;min-width:70px">Enviar<br>▶</button>
+      <textarea id="seller-input" rows="3" style="flex:1;background:#111;border:2px solid #333;border-radius:9px;color:#aaa;padding:9px;font-size:.85rem;resize:none;font-family:Arial,sans-serif" placeholder="Esperá que el cliente hable..."></textarea>
+      <button id="send-btn" onclick="sendSeller()" style="background:#333;color:#666;border:none;border-radius:9px;padding:0 16px;font-size:.85rem;font-weight:bold;min-width:70px;cursor:not-allowed">Enviar<br>▶</button>
     </div>
   </div>
 
@@ -323,32 +323,16 @@ function setReplyEnabled(on){
   var inp = document.getElementById('seller-input');
   var btn = document.getElementById('send-btn');
   var lbl = document.getElementById('reply-label');
-  if(on){
-    inp.disabled = false;
-    inp.style.background = '#0d2a1a';
-    inp.style.borderColor = '#22c55e';
-    inp.style.color = '#eee';
-    inp.placeholder = 'Escribí acá tu respuesta como vendedor...';
-    btn.disabled = false;
-    btn.style.background = '#22c55e';
-    btn.style.color = '#000';
-    btn.style.cursor = 'pointer';
-    lbl.style.color = '#22c55e';
-    lbl.textContent = '🟢 Tu turno — escribí tu respuesta como vendedor';
-    setTimeout(function(){ inp.focus(); }, 200);
-  } else {
-    inp.disabled = true;
-    inp.style.background = '#111';
-    inp.style.borderColor = '#333';
-    inp.style.color = '#aaa';
-    inp.placeholder = 'Esperá que el cliente hable...';
-    btn.disabled = true;
-    btn.style.background = '#333';
-    btn.style.color = '#666';
-    btn.style.cursor = 'not-allowed';
-    lbl.style.color = '#555';
-    lbl.textContent = '⏳ Esperá la respuesta del cliente...';
-  }
+  inp.style.background = on ? '#0d2a1a' : '#111';
+  inp.style.borderColor = on ? '#22c55e' : '#333';
+  inp.style.color = on ? '#eee' : '#aaa';
+  inp.placeholder = on ? 'Escribí acá tu respuesta como vendedor...' : 'Esperá que el cliente hable...';
+  btn.style.background = on ? '#22c55e' : '#333';
+  btn.style.color = on ? '#000' : '#666';
+  btn.style.cursor = on ? 'pointer' : 'not-allowed';
+  lbl.style.color = on ? '#22c55e' : '#555';
+  lbl.textContent = on ? '🟢 Tu turno — escribí tu respuesta' : '⏳ Esperá la respuesta del cliente...';
+  if(on && inp) setTimeout(function(){ inp.focus(); }, 200);
 }
 
 function showProduct(s){
