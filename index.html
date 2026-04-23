@@ -69,7 +69,7 @@ h1{color:#ff7a00;font-size:1.2rem;margin-bottom:2px;text-align:center}
 <div class="top">
   <div class="badge">Escenario <b id="sn">-</b>/3</div>
   <div class="badge">Pregunta <b id="qn">-</b>/3</div>
-  <div class="badge">Intercambio <b id="in">-</b></div>
+  <div class="badge">Intercambio <b id="in">-</b>/3</div>
   <div class="badge">Puntaje <b id="sc">0</b>/100</div>
 </div>
 
@@ -163,7 +163,7 @@ function loadV(){
 window.speechSynthesis.onvoiceschanged=loadV; loadV();
 
 function numW(n){
-  if(!n||isNaN(n))return'cero';
+  if(!n||isNaN(n)||n===0)return'cero';
   var u=['','un','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve'];
   var d=['','','veinte','treinta','cuarenta','cincuenta','sesenta','setenta','ochenta','noventa'];
   var c=['','ciento','doscientos','trescientos','cuatrocientos','quinientos','seiscientos','setecientos','ochocientos','novecientos'];
@@ -175,9 +175,22 @@ function numW(n){
   return r.trim();
 }
 function cleanTTS(t){
-  t=t.replace(/Gs\.?\s*([\d\.]+)/gi,function(m,n){return'guaraníes '+numW(parseInt(n.replace(/\./g,'')));});
-  t=t.replace(/\b(\d{5,})\b/g,function(m,n){return numW(parseInt(n));});
+  // Guaraníes: Gs. 1.190.000 → "guaraníes un millón ciento noventa mil"
+  t=t.replace(/Gs\.?\s*([\d\.]+)/gi,function(m,n){
+    var num=parseInt(n.replace(/\./g,''));
+    return'guaraníes '+numW(num);
+  });
+  // Números grandes sueltos
+  t=t.replace(/\b(\d[\d\.]{3,})\b/g,function(m,n){
+    var num=parseInt(n.replace(/\./g,''));
+    if(!isNaN(num))return numW(num);
+    return m;
+  });
+  // Porcentajes
   t=t.replace(/(\d+)%/g,function(m,n){return n+' por ciento';});
+  // BTU, modelos técnicos → deletrear
+  t=t.replace(/\bBTU\b/g,'be te u');
+  t=t.replace(/\bx\s*Gs/g,'cuotas de guaraníes');
   return t;
 }
 function speak(txt,perf){
@@ -339,8 +352,10 @@ var CAT=[
 // ── STATE ─────────────────────────────────────────────────
 var active=false,scens=[],scIdx=0,qIdx=0,inter=0,conv=[],scores=[],loading=false;
 var QS=['Saluda al vendedor con interés pero mostrando dudas sobre si este producto es para vos.','Planteá claramente tu objeción principal sobre el producto.','Preguntá por las opciones de financiamiento y cuotas disponibles.'];
+var VOCES_FEMENINAS=['Microsoft Sabina','Google español','Paulina','Monica','Luciana','Helena','Carmen'];
+function esVozFemenina(){if(!sVoice)return false;var n=sVoice.name.toLowerCase();return n.includes('female')||n.includes('mujer')||n.includes('sabina')||n.includes('paulina')||n.includes('monica')||n.includes('luciana')||n.includes('helena')||n.includes('carmen')||n.includes('google español');};
 
-function pick(){var p=CAT.slice(),r=[];while(r.length<3&&p.length>0){var i=Math.floor(Math.random()*p.length);r.push(p.splice(i,1)[0]);}return r;}
+function pick(){var p=CAT.slice();var i=Math.floor(Math.random()*p.length);return[p[i]];}
 
 // ── API ───────────────────────────────────────────────────
 function api(msgs,sys){
@@ -361,11 +376,11 @@ function startS(){
 }
 
 function nextScen(){
-  if(scIdx>=3){endS();return;}
+  if(scIdx>=1){endS();return;}  // 1 escenario
   qIdx=0;inter=0;conv=[];
   var s=scens[scIdx];
   showP(s);
-  addMsg('📦 <b>Escenario '+(scIdx+1)+'/3 — '+s.name+'</b>','ms');
+  addMsg('📦 <b>Escenario 1/1 — '+s.name+'</b>','ms');
   updUI();nextQ();
 }
 
@@ -374,7 +389,8 @@ function nextQ(){
   inter=0;
   var s=scens[scIdx];
   loading=true;setTurn(false);updUI();
-  var sys='Sos un cliente simulado para entrenar vendedores de Inverfin Paraguay.\nProducto: '+s.name+' ('+s.price+', cuotas: '+s.cuotas+').\nTu perfil: '+s.client+'.\nTu objeción: '+s.objection+'.\nTarea: '+QS[qIdx]+'\nHistorial: '+JSON.stringify(conv)+'\nRespondé SOLO como cliente, 2-3 oraciones en español paraguayo coloquial. No rompas el personaje.';
+  var vozGenero = esVozFemenina() ? 'VOZ FEMENINA: Sos una mujer. Podés mencionar a tu marido al hablar.' : 'VOZ MASCULINA: Sos un hombre. Podés mencionar a tu esposa o familia al hablar.';
+  var sys='Sos un cliente simulado para entrenar vendedores de Inverfin Paraguay.\nProducto: '+s.name+' ('+s.price+', cuotas: '+s.cuotas+').\nTu perfil: '+s.client+'.\nTu objeción: '+s.objection+'.\nTarea: '+QS[qIdx]+'\nHistorial: '+JSON.stringify(conv)+'\n'+vozGenero+'\nIMPORTANTE: Hablá en español paraguayo natural y variado. Usá expresiones como "la verdad que", "estaba pensando", "me surgió la duda", "andaba viendo", "para ser honesto", "quisiera saber", "fijate que". NO abuses de "nomás". Máximo una vez por respuesta. No uses "che" en cada oración. Sé natural y conversacional. Respondé en 2-3 oraciones. No rompas el personaje.';
   api([{role:'user',content:'Iniciá tu turno.'}],sys)
     .then(function(msg){
       conv.push({rol:'cliente',texto:msg});
@@ -397,7 +413,8 @@ function send(){
   var MAX=3,s=scens[scIdx];
   if(inter>=MAX){qIdx++;loading=false;nextQ();return;}
   var isLast=inter>=MAX-1;
-  var sys='Sos un cliente simulado para entrenar vendedores de Inverfin Paraguay.\nProducto: '+s.name+' ('+s.price+').\nPerfil: '+s.client+'.\nObjeción: '+s.objection+'.\nHistorial: '+JSON.stringify(conv)+'\nIntercambio '+inter+' de '+MAX+', pregunta '+(qIdx+1)+'.\n'+(isLast?'Cerrá el tema naturalmente.':'Respondé brevemente y natural.')+'\n2-3 oraciones en español paraguayo. No rompas el personaje.';
+  var vozGenero2 = esVozFemenina() ? 'VOZ FEMENINA: Sos una mujer. Podés mencionar a tu marido.' : 'VOZ MASCULINA: Sos un hombre. Podés mencionar a tu esposa.';
+  var sys='Sos un cliente simulado para entrenar vendedores de Inverfin Paraguay.\nProducto: '+s.name+' ('+s.price+').\nPerfil: '+s.client+'.\nObjeción: '+s.objection+'.\nHistorial: '+JSON.stringify(conv)+'\nIntercambio '+inter+' de '+MAX+', pregunta '+(qIdx+1)+'.\n'+vozGenero2+'\n'+(isLast?'Cerrá el tema naturalmente.':'Respondé brevemente y natural al último mensaje del vendedor.')+'\nHablá en español paraguayo variado. No abuses de "nomás" (máximo una vez por respuesta). Usá expresiones como "la verdad es que", "estaba pensando", "me quedé con la duda", "andaba viendo opciones". 2-3 oraciones. No rompas el personaje.';
   api([{role:'user',content:'Respondé como cliente.'}],sys)
     .then(function(resp){
       conv.push({rol:'cliente',texto:resp});
