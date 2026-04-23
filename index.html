@@ -8,82 +8,87 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:#0a0a1a;color:#eee;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:16px}
 h1{color:#ff7a00;font-size:1.2rem;margin-bottom:2px;text-align:center}
-.subtitle{color:#888;font-size:.72rem;margin-bottom:12px;text-align:center}
-.top-bar{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:10px;flex-wrap:wrap}
+.sub{color:#888;font-size:.72rem;margin-bottom:12px;text-align:center}
+.top{display:flex;gap:8px;justify-content:center;margin-bottom:10px;flex-wrap:wrap}
 .badge{background:#1a1a2e;border:1px solid #333;border-radius:20px;padding:4px 10px;font-size:.72rem;color:#ccc}
-.badge span{color:#ff7a00;font-weight:bold}
-.product-card{background:#1a1a2e;border:1px solid #ff7a00;border-radius:12px;padding:10px 14px;margin-bottom:10px;display:flex;gap:10px;align-items:flex-start;width:100%;max-width:680px}
-.product-fallback{width:80px;height:80px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;flex-shrink:0;background:#1a2a1a;border-radius:6px}
-.product-name{font-weight:bold;color:#ff7a00;font-size:.82rem;line-height:1.3;margin-bottom:3px}
-.product-price{color:#4ecdc4;font-size:.95rem;font-weight:bold}
-.product-antes{color:#666;font-size:.68rem;text-decoration:line-through;margin-left:6px}
-.product-cuotas{color:#aaa;font-size:.7rem;margin-top:2px}
-.product-link{color:#ff7a00;font-size:.67rem;margin-top:3px;display:inline-block}
-.arena{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:680px}
-.avatar-wrap{display:flex;flex-direction:column;align-items:center;gap:4px}
-.avatar-ring{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:4px solid #333;background:#0f2a0f;overflow:hidden;transition:box-shadow .3s,border-color .3s}
-.avatar-ring.speaking-client{border-color:#3b82f6;animation:pulseBlue 1s infinite}
-.avatar-ring.speaking-seller{border-color:#22c55e;animation:pulseGreen 1s infinite}
-@keyframes pulseBlue{0%,100%{box-shadow:0 0 0 6px rgba(59,130,246,.2),0 0 20px rgba(59,130,246,.35)}50%{box-shadow:0 0 0 14px rgba(59,130,246,.08),0 0 30px rgba(59,130,246,.55)}}
-@keyframes pulseGreen{0%,100%{box-shadow:0 0 0 6px rgba(34,197,94,.2),0 0 20px rgba(34,197,94,.35)}50%{box-shadow:0 0 0 14px rgba(34,197,94,.08),0 0 30px rgba(34,197,94,.55)}}
-.avatar-label{font-size:.68rem;color:#aaa;font-weight:bold;letter-spacing:1px}
-.turn-indicator{font-size:.73rem;color:#aaa;text-align:center;min-height:16px;font-weight:500}
-.voice-bar{display:flex;align-items:center;gap:7px;font-size:.7rem;color:#888;margin-top:2px}
-.voice-btn{background:transparent;border:1px solid #444;border-radius:16px;color:#888;padding:2px 9px;cursor:pointer;font-size:.68rem}
-.voice-btn.active{border-color:#3b82f6;color:#3b82f6}
-.chat-box{background:#0d0d1f;border:1px solid #1e1e3a;border-radius:12px;padding:10px;width:100%;max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
+.badge b{color:#ff7a00}
+.pcard{background:#1a1a2e;border:1px solid #ff7a00;border-radius:12px;padding:10px 14px;margin-bottom:10px;display:flex;gap:10px;align-items:flex-start;width:100%;max-width:680px}
+.picon{width:70px;height:70px;display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;background:#1a2a1a;border-radius:6px}
+.pname{font-weight:bold;color:#ff7a00;font-size:.82rem;line-height:1.3;margin-bottom:3px}
+.pprice{color:#4ecdc4;font-size:.95rem;font-weight:bold}
+.pbefore{color:#666;font-size:.68rem;text-decoration:line-through;margin-left:6px}
+.pcuotas{color:#aaa;font-size:.7rem;margin-top:2px}
+.plink{color:#ff7a00;font-size:.67rem;margin-top:3px;display:inline-block}
+.wrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:680px}
+.avwrap{display:flex;flex-direction:column;align-items:center;gap:4px}
+.avring{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:4px solid #333;background:#0f2a0f;overflow:hidden;transition:box-shadow .3s,border-color .3s}
+.avring.bc{border-color:#3b82f6;animation:pb 1s infinite}
+.avring.bs{border-color:#22c55e;animation:pg 1s infinite}
+@keyframes pb{0%,100%{box-shadow:0 0 0 6px rgba(59,130,246,.2),0 0 20px rgba(59,130,246,.35)}50%{box-shadow:0 0 0 14px rgba(59,130,246,.08),0 0 30px rgba(59,130,246,.55)}}
+@keyframes pg{0%,100%{box-shadow:0 0 0 6px rgba(34,197,94,.2),0 0 20px rgba(34,197,94,.35)}50%{box-shadow:0 0 0 14px rgba(34,197,94,.08),0 0 30px rgba(34,197,94,.55)}}
+.avlbl{font-size:.68rem;color:#aaa;font-weight:bold;letter-spacing:1px}
+.avind{font-size:.73rem;color:#aaa;text-align:center;min-height:16px;font-weight:500}
+.vbar{display:flex;align-items:center;gap:7px;font-size:.7rem;color:#888;margin-top:2px}
+.vbtn{background:transparent;border:1px solid #444;border-radius:16px;color:#888;padding:2px 9px;cursor:pointer;font-size:.68rem}
+.vbtn.on{border-color:#3b82f6;color:#3b82f6}
+.chat{background:#0d0d1f;border:1px solid #1e1e3a;border-radius:12px;padding:10px;width:100%;max-height:240px;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
 .msg{padding:7px 11px;border-radius:9px;font-size:.82rem;line-height:1.5;max-width:90%}
-.msg.client{background:#111d35;border-left:3px solid #3b82f6;align-self:flex-start}
-.msg.seller{background:#0f2a1a;border-left:3px solid #22c55e;align-self:flex-end;text-align:right}
-.msg.system{background:#1e1a0a;border-left:3px solid #ff7a00;align-self:center;text-align:center;font-style:italic;color:#ff7a00;font-size:.74rem;max-width:100%}
-.msg.eval{background:#12122a;border:1px solid #ff7a00;align-self:center;width:100%;border-radius:12px}
-.reply-area{width:100%;flex-direction:column;gap:7px;display:none}
-.reply-label{color:#22c55e;font-size:.8rem;text-align:center;font-weight:bold}
-.reply-row{display:flex;gap:7px}
-.reply-row textarea{flex:1;background:#0d2a1a;border:2px solid #22c55e;border-radius:9px;color:#eee;padding:9px;font-size:.85rem;resize:none;font-family:Arial,sans-serif}
-.reply-row textarea:focus{outline:none;border-color:#4ade80}
-.send-btn{background:#22c55e;color:#000;border:none;border-radius:9px;padding:0 16px;cursor:pointer;font-size:.85rem;font-weight:bold;min-width:70px}
-.send-btn:disabled{background:#333;color:#555;cursor:not-allowed}
+.mc{background:#111d35;border-left:3px solid #3b82f6;align-self:flex-start}
+.mv{background:#0f2a1a;border-left:3px solid #22c55e;align-self:flex-end;text-align:right}
+.ms{background:#1e1a0a;border-left:3px solid #ff7a00;align-self:center;text-align:center;font-style:italic;color:#ff7a00;font-size:.74rem;max-width:100%}
+.me{background:#12122a;border:1px solid #ff7a00;align-self:center;width:100%;border-radius:12px}
+/* ÁREA DE RESPUESTA — siempre visible */
+.rarea{width:100%;margin-top:10px}
+.rlbl{font-size:.82rem;text-align:center;font-weight:bold;margin-bottom:6px;padding:6px;border-radius:8px}
+.rlbl.wait{color:#666;background:#111}
+.rlbl.go{color:#000;background:#22c55e}
+.rinput{width:100%;background:#111;border:2px solid #333;border-radius:9px;color:#aaa;padding:10px;font-size:.88rem;resize:none;font-family:Arial,sans-serif;display:block;margin-bottom:8px}
+.rinput.go{background:#0d2a1a;border-color:#22c55e;color:#eee}
+.rbtn{width:100%;background:#333;color:#666;border:none;border-radius:9px;padding:12px;font-size:.95rem;font-weight:bold;cursor:not-allowed}
+.rbtn.go{background:#22c55e;color:#000;cursor:pointer}
+.micbtn{width:100%;background:#1a3a5a;color:#aaa;border:1px solid #3b82f6;border-radius:9px;padding:10px;font-size:.88rem;font-weight:bold;cursor:not-allowed;margin-top:6px}
+.micbtn.go{background:#1a3a5a;color:#eee;cursor:pointer}
+.micbtn.rec{background:#7f1d1d;color:#fff;border-color:#ef4444}
 .btn{background:#ff7a00;color:#fff;border:none;border-radius:9px;padding:8px 13px;cursor:pointer;font-size:.8rem;font-weight:bold;white-space:nowrap}
 .btn:hover{background:#e06800}
-.btn-outline{background:transparent;border:1px solid #444;color:#888;border-radius:9px;padding:6px 11px;cursor:pointer;font-size:.7rem}
-.btn-outline:hover{border-color:#ff7a00;color:#ff7a00}
-.controls{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
-.score-bar{width:100%;padding:4px}
-.score-title{color:#ff7a00;font-weight:bold;font-size:.85rem;margin-bottom:8px;text-align:center}
-.score-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #1e1e3a;font-size:.77rem}
-.score-row:last-of-type{border-bottom:none;font-weight:bold;margin-top:4px}
-.score-num{color:#4ecdc4;font-weight:bold}
+.btno{background:transparent;border:1px solid #444;color:#888;border-radius:9px;padding:6px 11px;cursor:pointer;font-size:.7rem}
+.btno:hover{border-color:#ff7a00;color:#ff7a00}
+.ctrls{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.sbar{width:100%;padding:4px}
+.stitle{color:#ff7a00;font-weight:bold;font-size:.85rem;margin-bottom:8px;text-align:center}
+.srow{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #1e1e3a;font-size:.77rem}
+.srow:last-of-type{border-bottom:none;font-weight:bold;margin-top:4px}
+.snum{color:#4ecdc4;font-weight:bold}
 .face{font-size:2rem;text-align:center;margin:5px 0}
 </style>
 </head>
 <body>
 <h1>🧡 ALFARO — Entrenador de Ventas Inverfin</h1>
-<p class="subtitle">Productos reales · inverfin.com.py</p>
+<p class="sub">Productos reales · inverfin.com.py</p>
 
-<div class="top-bar">
-  <div class="badge">Escenario <span id="scen-num">-</span>/3</div>
-  <div class="badge">Pregunta <span id="q-num">-</span>/3</div>
-  <div class="badge">Intercambio <span id="inter-num">-</span></div>
-  <div class="badge">Puntaje <span id="cur-score">0</span>/100</div>
+<div class="top">
+  <div class="badge">Escenario <b id="sn">-</b>/3</div>
+  <div class="badge">Pregunta <b id="qn">-</b>/3</div>
+  <div class="badge">Intercambio <b id="in">-</b></div>
+  <div class="badge">Puntaje <b id="sc">0</b>/100</div>
 </div>
 
-<div id="product-card" style="display:none" class="product-card">
-  <div id="prod-fallback" class="product-fallback">📦</div>
+<div id="pc" class="pcard" style="display:none">
+  <div class="picon" id="pi">📦</div>
   <div style="flex:1;min-width:0">
-    <div class="product-name" id="prod-name">-</div>
+    <div class="pname" id="pn">-</div>
     <div style="display:flex;align-items:baseline;gap:4px;flex-wrap:wrap">
-      <div class="product-price" id="prod-price">-</div>
-      <div class="product-antes" id="prod-antes"></div>
+      <span class="pprice" id="pp">-</span>
+      <span class="pbefore" id="pb"></span>
     </div>
-    <div class="product-cuotas" id="prod-cuotas"></div>
-    <a class="product-link" id="prod-link" href="#" target="_blank">Ver en inverfin.com.py ↗</a>
+    <div class="pcuotas" id="pq"></div>
+    <a class="plink" id="pl" href="#" target="_blank">Ver en inverfin.com.py ↗</a>
   </div>
 </div>
 
-<div class="arena">
-  <div class="avatar-wrap">
-    <div class="avatar-ring" id="avatar-ring">
+<div class="wrap">
+  <div class="avwrap">
+    <div class="avring" id="av">
       <svg width="114" height="114" viewBox="0 0 114 114" xmlns="http://www.w3.org/2000/svg">
         <circle cx="57" cy="57" r="57" fill="#0f2a0f"/>
         <ellipse cx="57" cy="88" rx="28" ry="24" fill="#e8e8e8"/>
@@ -91,14 +96,11 @@ h1{color:#ff7a00;font-size:1.2rem;margin-bottom:2px;text-align:center}
         <text x="57" y="93" text-anchor="middle" font-size="6.5" font-weight="bold" fill="white" font-family="Arial">FAMA</text>
         <circle cx="42" cy="82" r="3.5" fill="#1a6b1a" opacity=".7"/>
         <circle cx="72" cy="86" r="3" fill="#1a6b1a" opacity=".7"/>
-        <circle cx="52" cy="100" r="2.5" fill="#1a6b1a" opacity=".6"/>
         <ellipse cx="28" cy="86" rx="9" ry="16" fill="#e8e8e8" transform="rotate(-15 28 86)"/>
         <ellipse cx="86" cy="82" rx="9" ry="16" fill="#e8e8e8" transform="rotate(20 86 82)"/>
         <circle cx="95" cy="71" r="7" fill="#e8e8e8"/>
-        <circle cx="30" cy="26" r="13" fill="#e8e8e8"/>
-        <circle cx="84" cy="26" r="13" fill="#e8e8e8"/>
-        <circle cx="30" cy="26" r="8" fill="#d0d0d0"/>
-        <circle cx="84" cy="26" r="8" fill="#d0d0d0"/>
+        <circle cx="30" cy="26" r="13" fill="#e8e8e8"/><circle cx="30" cy="26" r="8" fill="#d0d0d0"/>
+        <circle cx="84" cy="26" r="13" fill="#e8e8e8"/><circle cx="84" cy="26" r="8" fill="#d0d0d0"/>
         <circle cx="57" cy="52" r="31" fill="#e8e8e8"/>
         <circle cx="40" cy="58" r="7" fill="#f4a0a0" opacity=".45"/>
         <circle cx="74" cy="58" r="7" fill="#f4a0a0" opacity=".45"/>
@@ -106,18 +108,8 @@ h1{color:#ff7a00;font-size:1.2rem;margin-bottom:2px;text-align:center}
         <ellipse cx="57" cy="64" rx="7" ry="4.5" fill="#c0b0b0"/>
         <ellipse cx="57" cy="57" rx="4.5" ry="3.5" fill="#1a1a1a"/>
         <circle cx="55.5" cy="56" r="1.3" fill="white" opacity=".6"/>
-        <g id="eye-left">
-          <circle cx="46" cy="47" r="6" fill="white"/>
-          <circle cx="46" cy="47" r="4" fill="#1a1a1a"/>
-          <circle cx="47.5" cy="45.5" r="1.3" fill="white"/>
-          <rect id="blink-left" x="40" y="42" width="12" height="0" rx="2.5" fill="#e8e8e8"/>
-        </g>
-        <g id="eye-right">
-          <circle cx="68" cy="47" r="6" fill="white"/>
-          <circle cx="68" cy="47" r="4" fill="#1a1a1a"/>
-          <circle cx="69.5" cy="45.5" r="1.3" fill="white"/>
-          <rect id="blink-right" x="62" y="42" width="12" height="0" rx="2.5" fill="#e8e8e8"/>
-        </g>
+        <g id="el"><circle cx="46" cy="47" r="6" fill="white"/><circle cx="46" cy="47" r="4" fill="#1a1a1a"/><circle cx="47.5" cy="45.5" r="1.3" fill="white"/><rect id="bl" x="40" y="42" width="12" height="0" rx="2.5" fill="#e8e8e8"/></g>
+        <g id="er"><circle cx="68" cy="47" r="6" fill="white"/><circle cx="68" cy="47" r="4" fill="#1a1a1a"/><circle cx="69.5" cy="45.5" r="1.3" fill="white"/><rect id="br" x="62" y="42" width="12" height="0" rx="2.5" fill="#e8e8e8"/></g>
         <rect x="38" y="41" width="16" height="12" rx="5.5" fill="none" stroke="#1a7a1a" stroke-width="2.2"/>
         <rect x="60" y="41" width="16" height="12" rx="5.5" fill="none" stroke="#1a7a1a" stroke-width="2.2"/>
         <line x1="54" y1="47" x2="60" y2="47" stroke="#1a7a1a" stroke-width="1.8"/>
@@ -125,384 +117,336 @@ h1{color:#ff7a00;font-size:1.2rem;margin-bottom:2px;text-align:center}
         <line x1="76" y1="47" x2="81" y2="45" stroke="#1a7a1a" stroke-width="1.8"/>
         <rect x="38" y="41" width="16" height="12" rx="5.5" fill="#1a7a1a" opacity=".32"/>
         <rect x="60" y="41" width="16" height="12" rx="5.5" fill="#1a7a1a" opacity=".32"/>
-        <path id="bear-mouth" d="M51 68 Q57 74 63 68" stroke="#555" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path id="bm" d="M51 68 Q57 74 63 68" stroke="#555" stroke-width="1.8" fill="none" stroke-linecap="round"/>
         <rect x="14" y="90" width="11" height="13" rx="3" fill="#7a4a1a"/>
         <line x1="19" y1="90" x2="19" y2="83" stroke="#888" stroke-width="1.3"/>
       </svg>
     </div>
-    <div class="avatar-label">🐻 ALFARO</div>
-    <div class="turn-indicator" id="turn-indicator">Presioná "Iniciar sesión" para comenzar</div>
-    <div class="voice-bar">
+    <div class="avlbl">🐻 ALFARO</div>
+    <div class="avind" id="ind">Presioná "Iniciar sesión" para comenzar</div>
+    <div class="vbar">
       <span>Voz:</span>
-      <button class="voice-btn active" id="voice-toggle" onclick="toggleVoice()">🔊 Activada</button>
-      <button class="voice-btn" onclick="testVoice()">▶ Test</button>
+      <button class="vbtn on" id="vtb" onclick="togV()">🔊 Act</button>
+      <button class="vbtn" onclick="testV()">▶ Test</button>
     </div>
   </div>
 
-  <div class="chat-box" id="chat-box">
-    <div class="msg system">¡Bienvenido! Soy ALFARO, tu entrenador de ventas Inverfin. Presioná "Iniciar sesión" para comenzar.</div>
+  <div class="chat" id="chat">
+    <div class="msg ms">¡Bienvenido! Soy ALFARO, tu entrenador. Presioná "Iniciar sesión".</div>
   </div>
 
-  <div style="width:100%;margin-top:8px">
-    <div id="reply-label" style="color:#555;font-size:.82rem;text-align:center;font-weight:bold;margin-bottom:6px">⏳ Esperá la respuesta del cliente...</div>
-    <div style="display:flex;gap:7px">
-      <textarea id="seller-input" rows="3" style="flex:1;background:#111;border:2px solid #333;border-radius:9px;color:#aaa;padding:9px;font-size:.85rem;resize:none;font-family:Arial,sans-serif" placeholder="Esperá que el cliente hable..."></textarea>
-      <button id="send-btn" onclick="sendSeller()" style="background:#333;color:#666;border:none;border-radius:9px;padding:0 16px;font-size:.85rem;font-weight:bold;min-width:70px;cursor:not-allowed">Enviar<br>▶</button>
-    </div>
+  <!-- ÁREA DE RESPUESTA SIEMPRE VISIBLE -->
+  <div class="rarea">
+    <div class="rlbl wait" id="rlbl">⏳ Esperá que el cliente hable...</div>
+    <textarea class="rinput" id="rinp" rows="3" placeholder="Esperá que el cliente hable..." onkeydown="onKey(event)"></textarea>
+    <button class="rbtn" id="rbtn" onclick="send()">📤 Enviar respuesta</button>
+    <button class="micbtn" id="mbtn" onclick="togMic()">🎙️ Responder por voz</button>
   </div>
 
-  <div class="controls">
-    <button class="btn" onclick="startSession()">▶ Iniciar sesión</button>
-    <button class="btn-outline" onclick="closeScenario()">⏭ Cerrar escenario</button>
-    <button class="btn-outline" onclick="resetSession()">🔄 Reiniciar</button>
+  <div class="ctrls">
+    <button class="btn" onclick="startS()">▶ Iniciar sesión</button>
+    <button class="btno" onclick="closeS()">⏭ Cerrar escenario</button>
+    <button class="btno" onclick="resetS()">🔄 Reiniciar</button>
   </div>
 </div>
 
 <script>
-var BACKEND_URL = 'https://inverfin-backend-production.up.railway.app';
+var BACKEND = 'https://inverfin-backend-production.up.railway.app';
 
-// ── VOZ ────────────────────────────────────────────────────
-var voiceEnabled = true;
-var spanishVoice = null;
+// ── VOZ ──────────────────────────────────────────────────
+var vOn=true, sVoice=null, recog=null, recActive=false;
 
-function loadVoices(){
-  var vs = window.speechSynthesis.getVoices();
-  spanishVoice = vs.find(function(v){return v.lang.startsWith('es')&&v.name.toLowerCase().includes('google');})
-    || vs.find(function(v){return v.lang.startsWith('es-419');})
-    || vs.find(function(v){return v.lang.startsWith('es');});
+function loadV(){
+  var vs=window.speechSynthesis.getVoices();
+  sVoice=vs.find(function(v){return v.lang.startsWith('es')&&v.name.toLowerCase().includes('google');})||vs.find(function(v){return v.lang.startsWith('es');})||vs[0];
 }
-window.speechSynthesis.onvoiceschanged = loadVoices;
-loadVoices();
+window.speechSynthesis.onvoiceschanged=loadV; loadV();
 
-function prepTTS(t){
-  t=t.replace(/Gs\.?\s*([\d\.]+)/gi,function(m,n){return 'guaraníes '+numLetra(parseInt(n.replace(/\./g,'')));});
-  t=t.replace(/\b(\d{5,})\b/g,function(m,n){return numLetra(parseInt(n));});
-  t=t.replace(/(\d+)%/g,function(m,n){return n+' por ciento';});
-  t=t.replace(/\bm{2,}\b/gi,function(m){return Array(m.length+1).join('em ').trim();});
-  return t;
-}
-function numLetra(n){
-  if(isNaN(n)||n===0)return 'cero';
+function numW(n){
+  if(!n||isNaN(n))return'cero';
   var u=['','un','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve'];
   var d=['','','veinte','treinta','cuarenta','cincuenta','sesenta','setenta','ochenta','noventa'];
   var c=['','ciento','doscientos','trescientos','cuatrocientos','quinientos','seiscientos','setecientos','ochocientos','novecientos'];
-  var r='';
-  if(n===100)return 'cien';
-  if(n>=1000000){var m=Math.floor(n/1000000);r+=(m===1?'un millón':numLetra(m)+' millones')+' ';n%=1000000;}
-  if(n>=1000){var k=Math.floor(n/1000);r+=(k===1?'mil':numLetra(k)+' mil')+' ';n%=1000;}
+  var r='';if(n===100)return'cien';
+  if(n>=1e6){var m=Math.floor(n/1e6);r+=(m===1?'un millón':numW(m)+' millones')+' ';n%=1e6;}
+  if(n>=1000){var k=Math.floor(n/1000);r+=(k===1?'mil':numW(k)+' mil')+' ';n%=1000;}
   if(n>=100){r+=c[Math.floor(n/100)]+' ';n%=100;}
-  if(n>=20){r+=d[Math.floor(n/10)];if(n%10)r+=' y '+u[n%10];}
-  else if(n>0)r+=u[n];
+  if(n>=20){r+=d[Math.floor(n/10)];if(n%10)r+=' y '+u[n%10];}else if(n>0)r+=u[n];
   return r.trim();
 }
-
-function speak(text, perfil){
-  if(!voiceEnabled) return;
+function cleanTTS(t){
+  t=t.replace(/Gs\.?\s*([\d\.]+)/gi,function(m,n){return'guaraníes '+numW(parseInt(n.replace(/\./g,'')));});
+  t=t.replace(/\b(\d{5,})\b/g,function(m,n){return numW(parseInt(n));});
+  t=t.replace(/(\d+)%/g,function(m,n){return n+' por ciento';});
+  return t;
+}
+function speak(txt,perf){
+  if(!vOn)return;
   window.speechSynthesis.cancel();
-  var u = new SpeechSynthesisUtterance(prepTTS(text));
-  if(spanishVoice){u.voice=spanishVoice;u.lang=spanishVoice.lang;}
-  else u.lang='es';
-  var p={ama_casa:{rate:.88,pitch:1.2},agricultor:{rate:.82,pitch:.85},profesional:{rate:.95,pitch:1.05},comerciante:{rate:1.0,pitch:1.0},joven:{rate:1.05,pitch:1.15}}[perfil||'comerciante']||{rate:.9,pitch:1};
-  u.rate=p.rate; u.pitch=p.pitch; u.volume=1;
-  u.onstart=function(){startMouth();};
-  u.onend=function(){stopMouth();};
-  u.onerror=function(){stopMouth();};
+  loadV();
+  var u=new SpeechSynthesisUtterance(cleanTTS(txt));
+  if(sVoice){u.voice=sVoice;u.lang=sVoice.lang;}else u.lang='es';
+  var p={ama_casa:{rate:.88,pitch:1.2},agricultor:{rate:.82,pitch:.85},profesional:{rate:.95,pitch:1.05},comerciante:{rate:1.0,pitch:1.0},joven:{rate:1.05,pitch:1.15}}[perf]||{rate:.9,pitch:1};
+  u.rate=p.rate;u.pitch=p.pitch;u.volume=1;
+  u.onstart=function(){startM();};u.onend=u.onerror=function(){stopM();};
   window.speechSynthesis.speak(u);
 }
+function togV(){vOn=!vOn;var b=document.getElementById('vtb');b.textContent=vOn?'🔊 Act':'🔇 Des';b.classList.toggle('on',vOn);if(!vOn){window.speechSynthesis.cancel();stopM();}}
+function testV(){loadV();var u=new SpeechSynthesisUtterance('Hola soy ALFARO tu entrenador de ventas Inverfin');if(sVoice){u.voice=sVoice;u.lang=sVoice.lang;}u.rate=.9;u.volume=1;u.onstart=startM;u.onend=stopM;window.speechSynthesis.cancel();window.speechSynthesis.speak(u);}
 
-function toggleVoice(){
-  voiceEnabled=!voiceEnabled;
-  var b=document.getElementById('voice-toggle');
-  b.textContent=voiceEnabled?'🔊 Activada':'🔇 Desactivada';
-  b.classList.toggle('active',voiceEnabled);
-  if(!voiceEnabled){window.speechSynthesis.cancel();stopMouth();}
+// ── MIC ───────────────────────────────────────────────────
+function initRec(){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR)return null;
+  var r=new SR();r.lang='es-PY';r.continuous=true;r.interimResults=true;
+  var final='';
+  r.onresult=function(e){
+    var interim='';
+    for(var i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal)final+=e.results[i][0].transcript+' ';
+      else interim=e.results[i][0].transcript;
+    }
+    document.getElementById('rinp').value=final+interim;
+  };
+  r.onend=function(){if(recActive)r.start();};
+  r.onerror=function(){stopMic();};
+  r._getFinal=function(){return final;};
+  r._reset=function(){final='';};
+  return r;
+}
+function togMic(){
+  var mb=document.getElementById('mbtn');
+  var ri=document.getElementById('rinp');
+  if(!isSellerTurn){return;}
+  if(recActive){
+    stopMic();
+    var txt=ri.value.trim();
+    if(txt)setTimeout(send,300);
+  } else {
+    if(!recog)recog=initRec();
+    if(!recog){alert('Tu navegador no soporta reconocimiento de voz.');return;}
+    window.speechSynthesis.cancel();
+    recog._reset();ri.value='';
+    recActive=true;
+    mb.textContent='⏹️ Detener y enviar';mb.className='micbtn go rec';
+    document.getElementById('ind').textContent='🔴 Escuchando... hablá ahora';
+    recog.start();
+  }
+}
+function stopMic(){
+  recActive=false;
+  var mb=document.getElementById('mbtn');
+  mb.textContent='🎙️ Responder por voz';
+  mb.className=isSellerTurn?'micbtn go':'micbtn';
+  if(recog)try{recog.stop();}catch(e){}
 }
 
-function testVoice(){
-  loadVoices();
-  var u=new SpeechSynthesisUtterance('Hola, soy ALFARO tu entrenador de ventas Inverfin.');
-  if(spanishVoice){u.voice=spanishVoice;u.lang=spanishVoice.lang;}
-  u.rate=0.9;u.pitch=1;u.volume=1;
-  u.onstart=function(){startMouth();};
-  u.onend=function(){stopMouth();};
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(u);
-}
-
-// ── OSO ANIMACIONES ────────────────────────────────────────
-var blinkT=null,mouthT=null,mouthOpen=false;
-function startBlink(){
-  clearInterval(blinkT);
-  blinkT=setInterval(function(){
-    var l=document.getElementById('blink-left'),r=document.getElementById('blink-right');
-    if(!l)return;
-    l.setAttribute('height','12');l.setAttribute('y','41');
-    r.setAttribute('height','12');r.setAttribute('y','41');
-    setTimeout(function(){l.setAttribute('height','0');r.setAttribute('height','0');},130);
-  },2500+Math.random()*2000);
-}
-function startMouth(){clearInterval(mouthT);mouthT=setInterval(function(){var m=document.getElementById('bear-mouth');if(!m)return;mouthOpen=!mouthOpen;m.setAttribute('d',mouthOpen?'M51 68 Q57 76 63 68':'M51 68 Q57 73 63 68');},260);}
-function stopMouth(){clearInterval(mouthT);mouthT=null;mouthOpen=false;var m=document.getElementById('bear-mouth');if(m)m.setAttribute('d','M51 68 Q57 74 63 68');}
+// ── OSO ───────────────────────────────────────────────────
+var bT=null,mT=null,mO=false;
+function startBlink(){clearInterval(bT);bT=setInterval(function(){var l=document.getElementById('bl'),r=document.getElementById('br');if(!l)return;l.setAttribute('height','12');l.setAttribute('y','41');r.setAttribute('height','12');r.setAttribute('y','41');setTimeout(function(){l.setAttribute('height','0');r.setAttribute('height','0');},130);},2500+Math.random()*2000);}
+function startM(){clearInterval(mT);mT=setInterval(function(){var m=document.getElementById('bm');if(!m)return;mO=!mO;m.setAttribute('d',mO?'M51 68 Q57 76 63 68':'M51 68 Q57 73 63 68');},260);}
+function stopM(){clearInterval(mT);mT=null;mO=false;var m=document.getElementById('bm');if(m)m.setAttribute('d','M51 68 Q57 74 63 68');}
 startBlink();
 
-// ── CATÁLOGO VERIFICADO DESDE INVERFIN.COM.PY ─────────────
-var CATALOG = [
+// ── UI ────────────────────────────────────────────────────
+var isSellerTurn=false;
+
+function setTurn(seller){
+  isSellerTurn=seller;
+  var lbl=document.getElementById('rlbl');
+  var inp=document.getElementById('rinp');
+  var btn=document.getElementById('rbtn');
+  var mb=document.getElementById('mbtn');
+  var av=document.getElementById('av');
+  var ind=document.getElementById('ind');
+  av.className='avring'+(seller?' bs':' bc');
+  if(seller){
+    lbl.textContent='🟢 Tu turno — escribí o hablá tu respuesta';
+    lbl.className='rlbl go';
+    inp.className='rinput go';
+    inp.placeholder='Escribí acá tu respuesta como vendedor...';
+    btn.className='rbtn go';
+    mb.className='micbtn go';
+    ind.textContent='🟢 Tu turno — respondé al cliente';
+    inp.focus();
+  } else {
+    lbl.textContent='⏳ Esperá que el cliente hable...';
+    lbl.className='rlbl wait';
+    inp.className='rinput';
+    inp.placeholder='Esperá que el cliente hable...';
+    btn.className='rbtn';
+    mb.className='micbtn';
+    ind.textContent='🔵 Cliente hablando...';
+    stopMic();
+  }
+}
+
+function addMsg(html,cls){
+  var box=document.getElementById('chat');
+  var d=document.createElement('div');
+  d.className='msg '+cls;d.innerHTML=html;
+  box.appendChild(d);box.scrollTop=box.scrollHeight;
+}
+function showP(s){
+  var icons={TV:'📺',AIRE:'❄️',GOOD:'❄️',LAVA:'🫧',HELA:'🧊',CONG:'🧊',MICR:'💡',MOTO:'🏍️',COCI:'🍳',EXHI:'🏪'};
+  var ic='📦';
+  for(var k in icons){if(s.name.toUpperCase().startsWith(k)){ic=icons[k];break;}}
+  document.getElementById('pi').textContent=ic;
+  document.getElementById('pn').textContent=s.name;
+  document.getElementById('pp').textContent=s.price;
+  document.getElementById('pb').textContent=s.precioAntes?'Antes: '+s.precioAntes:'';
+  document.getElementById('pq').textContent=s.cuotas||'';
+  document.getElementById('pl').href=s.url;
+  document.getElementById('pc').style.display='flex';
+}
+function updUI(){
+  document.getElementById('sn').textContent=active?scIdx+1:'-';
+  document.getElementById('qn').textContent=active?qIdx+1:'-';
+  document.getElementById('in').textContent=active?inter:'-';
+  document.getElementById('sc').textContent=scores.reduce(function(a,b){return a+b;},0);
+}
+function onKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
+
+// ── CATÁLOGO ──────────────────────────────────────────────
+var CAT=[
   {name:'TV FAMA 32" TVF-32E20 HD SMART NXT GEN',price:'Gs. 1.190.000',precioAntes:'Gs. 1.590.000',cuotas:'18 x Gs. 95.000',url:'https://inverfin.com.py/products/tv-fama-32-tvf-32e20-hd-smart-nxt-gen',perfil:'agricultor',client:'Don Alberto, 52 años, fanático del fútbol, quiere mejorar el entretenimiento del living',objection:'el precio le parece alto para una pantalla de 32 pulgadas'},
   {name:'TV FAMA 40" TVF-40E20 FHD SMART NXT GEN',price:'Gs. 1.590.000',precioAntes:'Gs. 2.120.000',cuotas:'18 x Gs. 127.000',url:'https://inverfin.com.py/products/tv-fama-40tvf-40e20-fhd-smart-nxt-gen',perfil:'profesional',client:'Lorena, 35 años, profesora, quiere TV para el dormitorio',objection:'duda si necesita Full HD o con HD le alcanza'},
   {name:'TV FAMA 43" TVF-43AU20 FHD SMART',price:'Gs. 1.869.000',precioAntes:'Gs. 2.928.000',cuotas:'18 x Gs. 149.000',url:'https://inverfin.com.py/products/tv-fama-led-43fhd-tvf-43au20-smart',perfil:'profesional',client:'Arquitecto, 40 años, compró departamento y busca TV para el living',objection:'está comparando con otras marcas más conocidas como Samsung'},
   {name:'TV FAMA 55" TVF-55EL1 UHD 4K SMART',price:'Gs. 2.795.000',precioAntes:'Gs. 3.978.000',cuotas:'18 x Gs. 224.000',url:'https://inverfin.com.py/products/tv-fama-led-55-uhd-tvf-55el1-smart',perfil:'comerciante',client:'Don Ramón, 45 años, dueño de restaurant, quiere TV grande para el salón',objection:'no sabe si 55 pulgadas es suficiente o necesita más grande'},
   {name:'TV FAMA 65" TVF-65EL1 UHD 4K SMART',price:'Gs. 3.865.000',precioAntes:'Gs. 5.322.000',cuotas:'18 x Gs. 309.000',url:'https://inverfin.com.py/products/tv-fama-led-65-uhd-tvf-65el1-smart',perfil:'profesional',client:'Profesional, 48 años, remodelando casa, busca TV de alta gama',objection:'le parece muy caro, evalúa marcas más económicas'},
-  {name:'TV FAMA 75" TVF-75QL1 QLED SMART',price:'Gs. 5.899.000',precioAntes:'Gs. 9.054.000',cuotas:'18 x Gs. 472.000',url:'https://inverfin.com.py/products/tv-fama-75-qled-tvf-75ql1-smart',perfil:'comerciante',client:'Empresario, 55 años, quiere TV para sala de reuniones de su empresa',objection:'duda si QLED vale la diferencia de precio frente a LED normal'},
-  {name:'AIRE FAMA 12.000 BTU AF-12AT R410A',price:'Gs. 2.035.000',precioAntes:'Gs. 3.582.000',cuotas:'18 x Gs. 169.000',url:'https://inverfin.com.py/products/aire-acondicionado-fama-12000btu-af-12at-r410a',perfil:'comerciante',client:'Don Miguel, 60 años, dueño de farmacia en el centro, busca climatizar su local',objection:'cree que con ventiladores alcanza para su negocio'},
-  {name:'AIRE FAMA 12.000 BTU AF-12AA INVERTER',price:'Gs. 3.038.000',precioAntes:'Gs. 4.050.000',cuotas:'18 x Gs. 259.000',url:'https://inverfin.com.py/products/aire-fama-12-000-btu-af-12aainv-r410a-2pz',perfil:'joven',client:'Matrimonio joven con bebé, quiere climatizar el dormitorio de su apartamento',objection:'el inverter le parece caro, no entiende bien la diferencia'},
-  {name:'AIRE GOODWEATHER 12.000 BTU GW-12FO',price:'Gs. 2.199.000',precioAntes:'Gs. 3.606.000',cuotas:'18 x Gs. 209.000',url:'https://inverfin.com.py/products/aire-acondicionado-goodweather-12000btu-gw-12fo-r410',perfil:'ama_casa',client:'Señora Rosa, 44 años, quiere climatizar el living de su casa',objection:'no conoce la marca Goodweather y desconfía de su calidad'},
-  {name:'AIRE GOODWEATHER 18.000 BTU GW-18FO',price:'Gs. 3.699.000',precioAntes:'Gs. 5.976.000',cuotas:'18 x Gs. 329.000',url:'https://inverfin.com.py/products/aire-acondicionado-goodweather-18000btu-gw-18fo-r410',perfil:'comerciante',client:'Dueño de peluquería, 38 años, necesita climatizar su local de 25 m²',objection:'duda si 18.000 BTU es lo que necesita para su espacio'},
-  {name:'AIRE GOODWEATHER 24.000 BTU INVERTER',price:'Gs. 5.980.000',precioAntes:'Gs. 8.172.000',cuotas:'18 x Gs. 489.000',url:'https://inverfin.com.py/products/aire-goodweather-24000btu-gw-24invs-r410a-2pz',perfil:'comerciante',client:'Gerente de oficina, 50 años, necesita aire para sala de reuniones grande',objection:'el precio le parece muy elevado, evalúa opciones más económicas'},
-  {name:'LAVARROPA FAMA YERUTI 6KG GRIS',price:'Gs. 670.000',precioAntes:'Gs. 969.000',cuotas:'18 x Gs. 53.000',url:'https://inverfin.com.py/products/lavarropa-fama-yeruti-6kg-gris',perfil:'joven',client:'Estudiante universitaria, 22 años, vive sola en departamento pequeño',objection:'evalúa lavar a mano o en lavandería para ahorrar dinero'},
-  {name:'LAVARROPA FAMA MAXI 6KG',price:'Gs. 1.489.000',precioAntes:'Gs. 1.990.000',cuotas:'18 x Gs. 119.000',url:'https://inverfin.com.py/products/lavarropa-fama-maxi-6kg',perfil:'ama_casa',client:'Señora Carmen, 42 años, recién mudada, necesita lavarropas para su familia',objection:'no entiende la diferencia entre semiautomático y automático'},
-  {name:'LAVARROPAS FAMA LAF-E8 8KG',price:'Gs. 1.989.000',precioAntes:'Gs. 2.652.000',cuotas:'18 x Gs. 159.000',url:'https://inverfin.com.py/products/lavarropas-fama-laf-e8-8-kg',perfil:'ama_casa',client:'Señora Rosa, 45 años, ama de casa con 4 hijos, lava mucha ropa',objection:'su lavarropas viejo todavía funciona y no quiere gastar ahora'},
-  {name:'LAVARROPA FAMA MAXI 12KG PRO',price:'Gs. 2.133.000',precioAntes:'Gs. 2.850.000',cuotas:'18 x Gs. 171.000',url:'https://inverfin.com.py/products/lavarropa-fama-maxi-12kg-pro',perfil:'ama_casa',client:'Señora Marta, 50 años, tiene pensión con 8 huéspedes y lava mucha ropa',objection:'le parece caro para una marca que no conoce bien'},
-  {name:'HELADERA MINI FAMA H-12 118 LTS',price:'Gs. 1.499.000',precioAntes:'Gs. 1.998.000',cuotas:'18 x Gs. 120.000',url:'https://inverfin.com.py/products/heladera-mini-fama-h-12-de-118-lts',perfil:'joven',client:'Joven profesional, 26 años, alquila habitación y necesita heladera pequeña',objection:'duda si 118 litros le alcanzará o si necesita una más grande'},
-  {name:'HELADERA FAMA H-300 212 LTS',price:'Gs. 1.869.000',precioAntes:'Gs. 2.928.000',cuotas:'18 x Gs. 149.000',url:'https://inverfin.com.py/products/99991627501071',perfil:'ama_casa',client:'Señora Ana, 48 años, remodeló su cocina y necesita heladera nueva',objection:'prefiere marcas internacionales como Samsung o LG que ya conoce'},
-  {name:'CONGELADOR FAMA CF-100 100 LTS',price:'Gs. 1.350.000',precioAntes:'Gs. 1.800.000',cuotas:'18 x Gs. 108.000',url:'https://inverfin.com.py/products/congelador-fama-100-l',perfil:'comerciante',client:'Don Pablo, 38 años, tiene almacén de barrio y vende helados y bebidas',objection:'ya tiene heladera y no está seguro si realmente necesita freezer aparte'},
-  {name:'CONGELADOR FAMA CF-200H 200 LTS',price:'Gs. 2.700.000',precioAntes:'Gs. 3.600.000',cuotas:'18 x Gs. 216.000',url:'https://inverfin.com.py/products/congelador-fama-cf-200h',perfil:'comerciante',client:'Doña Marta, 52 años, carnicería familiar que necesita más capacidad de frío',objection:'su equipo actual todavía funciona y no quiere endeudarse ahora'},
-  {name:'CONGELADOR FAMA CF-300SD 300 LTS',price:'Gs. 2.695.000',precioAntes:'Gs. 3.774.000',cuotas:'18 x Gs. 216.000',url:'https://inverfin.com.py/products/congelador-fama-cf-300sd',perfil:'comerciante',client:'Propietario de pollería, 44 años, necesita congelador vertical con puerta de vidrio',objection:'duda entre el modelo horizontal y el vertical para su negocio'},
-  {name:'MICROONDAS FAMA MF-20AP 20 LTS',price:'Gs. 539.000',precioAntes:'Gs. 738.000',cuotas:'18 x Gs. 43.000',url:'https://inverfin.com.py/products/microondas-fama-mf-20ap-20-lts',perfil:'profesional',client:'Oficina de 12 personas que necesita microondas para el comedor del personal',objection:'dudan de la durabilidad de la marca FAMA para uso intensivo diario'},
-  {name:'MICROONDAS FAMA MF-25AP 25 LTS',price:'Gs. 734.000',precioAntes:'Gs. 978.000',cuotas:'18 x Gs. 59.000',url:'https://inverfin.com.py/products/microondas-fama-mf-25ap-25lts',perfil:'ama_casa',client:'Señora Gladys, 48 años, ama de casa que quiere agilizar la cocina',objection:'no sabe bien para qué sirve el microondas si ya tiene cocina a gas'},
-  {name:'MICROONDAS FAMA 30LT P90N30AP-S3',price:'Gs. 850.000',precioAntes:'Gs. 1.190.000',cuotas:'18 x Gs. 68.000',url:'https://inverfin.com.py/products/microondas-fama-30lt-p90n30ap-s3',perfil:'comerciante',client:'Restaurante pequeño, necesita microondas para calentar porciones rápido',objection:'evalúa marcas más conocidas como Whirlpool o Samsung'},
-  {name:'MOTO TAIGA TL200 CR3',price:'Gs. 10.990.000',precioAntes:'Gs. 13.400.000',cuotas:'30 x Gs. 599.000',url:'https://inverfin.com.py/products/99991627500988',perfil:'joven',client:'Carlos, 26 años, trabaja en delivery y necesita moto propia urgente',objection:'le parece cara, está evaluando comprar una moto usada'},
-  {name:'COCINA FAMA JUNIOR 4H BLANCO',price:'Gs. 369.000',precioAntes:'Gs. 492.000',cuotas:'18 x Gs. 29.000',url:'https://inverfin.com.py/products/cocina-fama-junior4h-blanco',perfil:'ama_casa',client:'Señora Carmen, 50 años, remodeló su cocina y necesita cocina a gas nueva',objection:'preferiría una cocina eléctrica por miedo a accidentes con el gas'},
-  {name:'COCINA FAMA ARIA 4H BLANCO CL',price:'Gs. 789.000',precioAntes:'Gs. 1.062.000',cuotas:'18 x Gs. 63.000',url:'https://inverfin.com.py/products/cocina-fama-aria-4h-blanco-cl',perfil:'ama_casa',client:'Pareja joven, 30 años, equipando su primera casa propia',objection:'están comparando con modelos de otras marcas que vieron en otras tiendas'},
-  {name:'EXHIBIDOR FAMA EF-250H 250L FRÍO HÚMEDO',price:'Gs. 2.779.000',precioAntes:'Gs. 4.909.000',cuotas:'18 x Gs. 222.000',url:'https://inverfin.com.py/products/exhibidor-fama-ef-250h-frio-humedo',perfil:'comerciante',client:'Roberto, 42 años, dueño de carnicería que necesita exhibidor nuevo',objection:'su exhibidor actual todavía enfría y no quiere endeudarse ahora'},
+  {name:'TV FAMA 75" TVF-75QL1 QLED SMART',price:'Gs. 5.899.000',precioAntes:'Gs. 9.054.000',cuotas:'18 x Gs. 472.000',url:'https://inverfin.com.py/products/tv-fama-75-qled-tvf-75ql1-smart',perfil:'comerciante',client:'Empresario, 55 años, quiere TV para sala de reuniones',objection:'duda si QLED vale la diferencia de precio'},
+  {name:'AIRE FAMA 12.000 BTU AF-12AT R410A',price:'Gs. 2.035.000',precioAntes:'Gs. 3.582.000',cuotas:'18 x Gs. 169.000',url:'https://inverfin.com.py/products/aire-acondicionado-fama-12000btu-af-12at-r410a',perfil:'comerciante',client:'Don Miguel, 60 años, dueño de farmacia, busca climatizar su local',objection:'cree que con ventiladores alcanza para su negocio'},
+  {name:'AIRE FAMA 12.000 BTU AF-12AA INVERTER',price:'Gs. 3.038.000',precioAntes:'Gs. 4.050.000',cuotas:'18 x Gs. 259.000',url:'https://inverfin.com.py/products/aire-fama-12-000-btu-af-12aainv-r410a-2pz',perfil:'joven',client:'Matrimonio joven con bebé, quiere climatizar el dormitorio',objection:'el inverter le parece caro, no entiende bien la diferencia'},
+  {name:'AIRE GOODWEATHER 12.000 BTU GW-12FO',price:'Gs. 2.199.000',precioAntes:'Gs. 3.606.000',cuotas:'18 x Gs. 209.000',url:'https://inverfin.com.py/products/aire-acondicionado-goodweather-12000btu-gw-12fo-r410',perfil:'ama_casa',client:'Señora Rosa, 44 años, quiere climatizar el living',objection:'no conoce la marca Goodweather y desconfía'},
+  {name:'AIRE GOODWEATHER 18.000 BTU GW-18FO',price:'Gs. 3.699.000',precioAntes:'Gs. 5.976.000',cuotas:'18 x Gs. 329.000',url:'https://inverfin.com.py/products/aire-acondicionado-goodweather-18000btu-gw-18fo-r410',perfil:'comerciante',client:'Dueño de peluquería, 38 años, necesita climatizar local de 25 m²',objection:'duda si 18.000 BTU es suficiente'},
+  {name:'LAVARROPA FAMA YERUTI 6KG GRIS',price:'Gs. 670.000',precioAntes:'Gs. 969.000',cuotas:'18 x Gs. 53.000',url:'https://inverfin.com.py/products/lavarropa-fama-yeruti-6kg-gris',perfil:'joven',client:'Estudiante, 22 años, vive sola en departamento pequeño',objection:'evalúa lavar a mano para ahorrar dinero'},
+  {name:'LAVARROPA FAMA MAXI 6KG',price:'Gs. 1.489.000',precioAntes:'Gs. 1.990.000',cuotas:'18 x Gs. 119.000',url:'https://inverfin.com.py/products/lavarropa-fama-maxi-6kg',perfil:'ama_casa',client:'Señora Carmen, 42 años, recién mudada, necesita lavarropas',objection:'no entiende diferencia entre semiautomático y automático'},
+  {name:'LAVARROPAS FAMA LAF-E8 8KG',price:'Gs. 1.989.000',precioAntes:'Gs. 2.652.000',cuotas:'18 x Gs. 159.000',url:'https://inverfin.com.py/products/lavarropas-fama-laf-e8-8-kg',perfil:'ama_casa',client:'Señora Rosa, 45 años, familia numerosa, lava mucha ropa',objection:'su lavarropas viejo todavía funciona'},
+  {name:'HELADERA MINI FAMA H-12 118 LTS',price:'Gs. 1.499.000',precioAntes:'Gs. 1.998.000',cuotas:'18 x Gs. 120.000',url:'https://inverfin.com.py/products/heladera-mini-fama-h-12-de-118-lts',perfil:'joven',client:'Joven profesional, 26 años, alquila habitación',objection:'duda si 118 litros le alcanza'},
+  {name:'HELADERA FAMA H-300 212 LTS',price:'Gs. 1.869.000',precioAntes:'Gs. 2.928.000',cuotas:'18 x Gs. 149.000',url:'https://inverfin.com.py/products/99991627501071',perfil:'ama_casa',client:'Señora Ana, 48 años, remodeló su cocina',objection:'prefiere marcas como Samsung o LG'},
+  {name:'CONGELADOR FAMA CF-100 100 LTS',price:'Gs. 1.350.000',precioAntes:'Gs. 1.800.000',cuotas:'18 x Gs. 108.000',url:'https://inverfin.com.py/products/congelador-fama-100-l',perfil:'comerciante',client:'Don Pablo, 38 años, almacén de barrio, vende helados',objection:'ya tiene heladera y duda si necesita freezer'},
+  {name:'CONGELADOR FAMA CF-200H 200 LTS',price:'Gs. 2.700.000',precioAntes:'Gs. 3.600.000',cuotas:'18 x Gs. 216.000',url:'https://inverfin.com.py/products/congelador-fama-cf-200h',perfil:'comerciante',client:'Doña Marta, 52 años, carnicería familiar',objection:'su equipo actual todavía funciona'},
+  {name:'CONGELADOR FAMA CF-300SD 300 LTS',price:'Gs. 2.695.000',precioAntes:'Gs. 3.774.000',cuotas:'18 x Gs. 216.000',url:'https://inverfin.com.py/products/congelador-fama-cf-300sd',perfil:'comerciante',client:'Propietario de pollería, 44 años, necesita congelador vertical',objection:'duda entre modelo horizontal y vertical'},
+  {name:'MICROONDAS FAMA MF-20AP 20 LTS',price:'Gs. 539.000',precioAntes:'Gs. 738.000',cuotas:'18 x Gs. 43.000',url:'https://inverfin.com.py/products/microondas-fama-mf-20ap-20-lts',perfil:'profesional',client:'Oficina de 12 personas, necesita microondas para el comedor',objection:'dudan de la durabilidad para uso intensivo'},
+  {name:'MICROONDAS FAMA MF-25AP 25 LTS',price:'Gs. 734.000',precioAntes:'Gs. 978.000',cuotas:'18 x Gs. 59.000',url:'https://inverfin.com.py/products/microondas-fama-mf-25ap-25lts',perfil:'ama_casa',client:'Señora Gladys, 48 años, quiere agilizar la cocina',objection:'no sabe para qué sirve si ya tiene cocina a gas'},
+  {name:'MICROONDAS FAMA 30LT P90N30AP-S3',price:'Gs. 850.000',precioAntes:'Gs. 1.190.000',cuotas:'18 x Gs. 68.000',url:'https://inverfin.com.py/products/microondas-fama-30lt-p90n30ap-s3',perfil:'comerciante',client:'Restaurante pequeño, necesita microondas para porciones rápidas',objection:'evalúa marcas más conocidas como Whirlpool'},
+  {name:'MOTO TAIGA TL200 CR3',price:'Gs. 10.990.000',precioAntes:'Gs. 13.400.000',cuotas:'30 x Gs. 599.000',url:'https://inverfin.com.py/products/99991627500988',perfil:'joven',client:'Carlos, 26 años, trabaja en delivery, necesita moto propia',objection:'le parece cara, evalúa moto usada'},
+  {name:'COCINA FAMA JUNIOR 4H BLANCO',price:'Gs. 369.000',precioAntes:'Gs. 492.000',cuotas:'18 x Gs. 29.000',url:'https://inverfin.com.py/products/cocina-fama-junior4h-blanco',perfil:'ama_casa',client:'Señora Carmen, 50 años, remodeló cocina, necesita cocina nueva',objection:'preferiría eléctrica por miedo al gas'},
+  {name:'COCINA FAMA ARIA 4H BLANCO CL',price:'Gs. 789.000',precioAntes:'Gs. 1.062.000',cuotas:'18 x Gs. 63.000',url:'https://inverfin.com.py/products/cocina-fama-aria-4h-blanco-cl',perfil:'ama_casa',client:'Pareja joven, 30 años, equipando su primera casa',objection:'comparando con otras marcas que vieron en otras tiendas'},
+  {name:'EXHIBIDOR FAMA EF-250H 250L FRÍO HÚMEDO',price:'Gs. 2.779.000',precioAntes:'Gs. 4.909.000',cuotas:'18 x Gs. 222.000',url:'https://inverfin.com.py/products/exhibidor-fama-ef-250h-frio-humedo',perfil:'comerciante',client:'Roberto, 42 años, carnicería que necesita exhibidor nuevo',objection:'su exhibidor actual todavía enfría'},
 ];
 
-// ── STATE ──────────────────────────────────────────────────
-var sessionActive=false,currentScenarios=[],currentScenIdx=0;
-var currentQIdx=0,currentInteraction=0,scenConv=[];
-var scores=[],loading=false;
+// ── STATE ─────────────────────────────────────────────────
+var active=false,scens=[],scIdx=0,qIdx=0,inter=0,conv=[],scores=[],loading=false;
+var QS=['Saluda al vendedor con interés pero mostrando dudas sobre si este producto es para vos.','Planteá claramente tu objeción principal sobre el producto.','Preguntá por las opciones de financiamiento y cuotas disponibles.'];
 
-var QUESTIONS=[
-  'Saluda al vendedor con interés inicial pero mostrando dudas sobre si este producto es para vos.',
-  'Plantea claramente tu objeción principal sobre el producto.',
-  'Pregunta por las opciones de financiamiento y cuotas disponibles.',
-];
+function pick(){var p=CAT.slice(),r=[];while(r.length<3&&p.length>0){var i=Math.floor(Math.random()*p.length);r.push(p.splice(i,1)[0]);}return r;}
 
-function pickScenarios(){
-  var pool=CATALOG.slice(),picked=[];
-  while(picked.length<3&&pool.length>0){
-    var idx=Math.floor(Math.random()*pool.length);
-    picked.push(pool.splice(idx,1)[0]);
-  }
-  return picked;
+// ── API ───────────────────────────────────────────────────
+function api(msgs,sys){
+  return fetch(BACKEND+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:msgs,system:sys})})
+    .then(function(r){return r.json();}).then(function(d){if(d.error)throw new Error(d.error);return d.text||'';});
 }
 
-function updateUI(){
-  document.getElementById('scen-num').textContent=sessionActive?currentScenIdx+1:'-';
-  document.getElementById('q-num').textContent=sessionActive?currentQIdx+1:'-';
-  document.getElementById('inter-num').textContent=sessionActive?currentInteraction:'-';
-  document.getElementById('cur-score').textContent=scores.reduce(function(a,b){return a+b;},0);
-}
-
-function addMsg(html,type){
-  var box=document.getElementById('chat-box');
-  var d=document.createElement('div');
-  d.className='msg '+type;d.innerHTML=html;
-  box.appendChild(d);box.scrollTop=box.scrollHeight;
-}
-
-function setAvatar(state){
-  var ring=document.getElementById('avatar-ring');
-  var ind=document.getElementById('turn-indicator');
-  ring.className='avatar-ring';
-  if(state==='client'){ring.classList.add('speaking-client');ind.textContent='🔵 Cliente hablando...';}
-  else if(state==='seller'){ring.classList.add('speaking-seller');ind.textContent='🟢 Tu turno — escribí tu respuesta';}
-  else ind.textContent='En espera...';
-}
-
-function setReplyEnabled(on){
-  var inp = document.getElementById('seller-input');
-  var btn = document.getElementById('send-btn');
-  var lbl = document.getElementById('reply-label');
-  inp.style.background = on ? '#0d2a1a' : '#111';
-  inp.style.borderColor = on ? '#22c55e' : '#333';
-  inp.style.color = on ? '#eee' : '#aaa';
-  inp.placeholder = on ? 'Escribí acá tu respuesta como vendedor...' : 'Esperá que el cliente hable...';
-  btn.style.background = on ? '#22c55e' : '#333';
-  btn.style.color = on ? '#000' : '#666';
-  btn.style.cursor = on ? 'pointer' : 'not-allowed';
-  lbl.style.color = on ? '#22c55e' : '#555';
-  lbl.textContent = on ? '🟢 Tu turno — escribí tu respuesta' : '⏳ Esperá la respuesta del cliente...';
-  if(on && inp) setTimeout(function(){ inp.focus(); }, 200);
-}
-
-function showProduct(s){
-  document.getElementById('prod-fallback').textContent=
-    s.name.includes('TV')||s.name.includes('tv')?'📺':
-    s.name.includes('AIRE')||s.name.includes('aire')?'❄️':
-    s.name.includes('LAVARROPA')||s.name.includes('LAF')?'🫧':
-    s.name.includes('HELADERA')?'🧊':
-    s.name.includes('CONGEL')?'🧊':
-    s.name.includes('MICRO')?'💡':
-    s.name.includes('MOTO')?'🏍️':
-    s.name.includes('COCINA')?'🍳':
-    s.name.includes('EXHIB')?'🏪':'📦';
-  document.getElementById('prod-name').textContent=s.name;
-  document.getElementById('prod-price').textContent=s.price;
-  document.getElementById('prod-antes').textContent=s.precioAntes?'Antes: '+s.precioAntes:'';
-  document.getElementById('prod-cuotas').textContent=s.cuotas||'';
-  document.getElementById('prod-link').href=s.url;
-  document.getElementById('product-card').style.display='flex';
-}
-
-// ── API (via backend Railway) ──────────────────────────────
-function callAPI(messages, system){
-  return fetch(BACKEND_URL+'/chat',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({messages:messages,system:system})
-  }).then(function(r){return r.json();}).then(function(d){
-    if(d.error)throw new Error(d.error);
-    return d.text||'';
-  });
-}
-
-// ── SESIÓN ────────────────────────────────────────────────
-function startSession(){
+// ── SESSION ───────────────────────────────────────────────
+function startS(){
   if(loading)return;
-  sessionActive=false;currentScenIdx=0;currentQIdx=0;currentInteraction=0;
-  scenConv=[];scores=[];
-  window.speechSynthesis.cancel();stopMouth();
-  setAvatar('idle');updateUI();
-  setReplyEnabled(false);
-  currentScenarios=pickScenarios();
-  sessionActive=true;
-  document.getElementById('chat-box').innerHTML='';
-  addMsg('✅ ¡Sesión iniciada con '+CATALOG.length+' productos reales de Inverfin!','system');
-  startScenario();
+  active=false;scIdx=0;qIdx=0;inter=0;conv=[];scores=[];loading=false;
+  window.speechSynthesis.cancel();stopM();stopMic();
+  setTurn(false);updUI();
+  scens=pick();active=true;
+  document.getElementById('chat').innerHTML='';
+  addMsg('✅ ¡Sesión iniciada con '+CAT.length+' productos de Inverfin!','ms');
+  nextScen();
 }
 
-function startScenario(){
-  if(currentScenIdx>=3){endSession();return;}
-  currentQIdx=0;currentInteraction=0;scenConv=[];
-  var s=currentScenarios[currentScenIdx];
-  showProduct(s);
-  addMsg('📦 <strong>Escenario '+(currentScenIdx+1)+'/3 — '+s.name+'</strong>','system');
-  updateUI();nextQuestion();
+function nextScen(){
+  if(scIdx>=3){endS();return;}
+  qIdx=0;inter=0;conv=[];
+  var s=scens[scIdx];
+  showP(s);
+  addMsg('📦 <b>Escenario '+(scIdx+1)+'/3 — '+s.name+'</b>','ms');
+  updUI();nextQ();
 }
 
-function nextQuestion(){
-  if(currentQIdx>=3){evaluateScenario();return;}
-  currentInteraction=0;
-  var s=currentScenarios[currentScenIdx];
-  loading=true;setAvatar('client');updateUI();
-  var sys='Sos un cliente simulado para entrenar vendedores de Inverfin Paraguay.\n'
-    +'Producto: '+s.name+' ('+s.price+', cuotas: '+s.cuotas+').\n'
-    +'Tu perfil: '+s.client+'.\nTu objeción típica: '+s.objection+'.\n'
-    +'Tarea: '+QUESTIONS[currentQIdx]+'\nHistorial: '+JSON.stringify(scenConv)+'\n'
-    +'Respondé SOLO como cliente, 2-3 oraciones en español paraguayo coloquial. No rompas el personaje.';
-  callAPI([{role:'user',content:'Iniciá tu turno.'}],sys)
+function nextQ(){
+  if(qIdx>=3){evalS();return;}
+  inter=0;
+  var s=scens[scIdx];
+  loading=true;setTurn(false);updUI();
+  var sys='Sos un cliente simulado para entrenar vendedores de Inverfin Paraguay.\nProducto: '+s.name+' ('+s.price+', cuotas: '+s.cuotas+').\nTu perfil: '+s.client+'.\nTu objeción: '+s.objection+'.\nTarea: '+QS[qIdx]+'\nHistorial: '+JSON.stringify(conv)+'\nRespondé SOLO como cliente, 2-3 oraciones en español paraguayo coloquial. No rompas el personaje.';
+  api([{role:'user',content:'Iniciá tu turno.'}],sys)
     .then(function(msg){
-      scenConv.push({rol:'cliente',texto:msg});
-      addMsg('<strong>Cliente:</strong> '+msg,'client');
+      conv.push({rol:'cliente',texto:msg});
+      addMsg('<b>Cliente:</b> '+msg,'mc');
       speak(msg,s.perfil);
-      loading=false;setAvatar('seller');currentInteraction=1;updateUI();
-    }).catch(function(e){addMsg('⚠️ '+e.message,'system');loading=false;setAvatar('seller');});
+      loading=false;inter=1;updUI();
+      setTurn(true);
+    }).catch(function(e){addMsg('⚠️ '+e.message,'ms');loading=false;setTurn(true);});
 }
 
-function sendSeller(){
-  if(loading||!sessionActive)return;
-  var inp=document.getElementById('seller-input');
-  var text=inp.value.trim();if(!text)return;
-  inp.value='';
-  window.speechSynthesis.cancel();stopMouth();
-  addMsg('<strong>Vos (vendedor):</strong> '+text,'seller');
-  scenConv.push({rol:'vendedor',texto:text});
-  setAvatar('client');loading=true;
-  document.getElementById('send-btn').disabled=true;
-  var MAX=3,s=currentScenarios[currentScenIdx];
-  if(currentInteraction>=MAX){currentQIdx++;loading=false;nextQuestion();return;}
-  var isLast=currentInteraction>=MAX-1;
-  var sys='Sos un cliente simulado para entrenar vendedores de Inverfin Paraguay.\n'
-    +'Producto: '+s.name+' ('+s.price+').\nPerfil: '+s.client+'.\nObjeción: '+s.objection+'.\n'
-    +'Historial: '+JSON.stringify(scenConv)+'\n'
-    +'Intercambio '+currentInteraction+' de '+MAX+', pregunta '+(currentQIdx+1)+'.\n'
-    +(isLast?'Cerrá el tema naturalmente.':'Respondé brevemente y natural al último mensaje del vendedor.')+'\n'
-    +'2-3 oraciones en español paraguayo. No rompas el personaje.';
-  callAPI([{role:'user',content:'Respondé como cliente.'}],sys)
+function send(){
+  if(loading||!active||!isSellerTurn)return;
+  var inp=document.getElementById('rinp');
+  var txt=inp.value.trim();if(!txt)return;
+  inp.value='';stopMic();
+  window.speechSynthesis.cancel();stopM();
+  addMsg('<b>Vos (vendedor):</b> '+txt,'mv');
+  conv.push({rol:'vendedor',texto:txt});
+  setTurn(false);loading=true;
+  var MAX=3,s=scens[scIdx];
+  if(inter>=MAX){qIdx++;loading=false;nextQ();return;}
+  var isLast=inter>=MAX-1;
+  var sys='Sos un cliente simulado para entrenar vendedores de Inverfin Paraguay.\nProducto: '+s.name+' ('+s.price+').\nPerfil: '+s.client+'.\nObjeción: '+s.objection+'.\nHistorial: '+JSON.stringify(conv)+'\nIntercambio '+inter+' de '+MAX+', pregunta '+(qIdx+1)+'.\n'+(isLast?'Cerrá el tema naturalmente.':'Respondé brevemente y natural.')+'\n2-3 oraciones en español paraguayo. No rompas el personaje.';
+  api([{role:'user',content:'Respondé como cliente.'}],sys)
     .then(function(resp){
-      scenConv.push({rol:'cliente',texto:resp});
-      addMsg('<strong>Cliente:</strong> '+resp,'client');
+      conv.push({rol:'cliente',texto:resp});
+      addMsg('<b>Cliente:</b> '+resp,'mc');
       speak(resp,s.perfil);
-      currentInteraction++;loading=false;
-      if(currentInteraction>=MAX){currentQIdx++;setTimeout(nextQuestion,900);}
-      else{setAvatar('seller');document.getElementById('send-btn').disabled=false;}
-      updateUI();
-    }).catch(function(e){addMsg('⚠️ '+e.message,'system');loading=false;setAvatar('seller');document.getElementById('send-btn').disabled=false;});
+      inter++;loading=false;
+      if(inter>=MAX){qIdx++;setTimeout(nextQ,900);}
+      else setTurn(true);
+      updUI();
+    }).catch(function(e){addMsg('⚠️ '+e.message,'ms');loading=false;setTurn(true);});
 }
 
-function evaluateScenario(){
-  loading=true;setAvatar('idle');
-  addMsg('⏳ ALFARO evaluando...','system');
-  var s=currentScenarios[currentScenIdx];
-  var sys='Sos ALFARO, evaluador experto en ventas de Inverfin.\nProducto: '+s.name+'.\nConversación: '+JSON.stringify(scenConv)+'\n'
-    +'Respondé SOLO con este JSON sin markdown:\n{"apertura":<0-20>,"descubrimiento":<0-20>,"propuesta":<0-20>,"objeciones":<0-25>,"cierre":<0-15>,"total":<0-100>,"feedback":"<2 oraciones motivadoras en español>"}';
-  callAPI([{role:'user',content:'Evaluá.'}],sys)
+function evalS(){
+  loading=true;setTurn(false);
+  addMsg('⏳ ALFARO evaluando...','ms');
+  var s=scens[scIdx];
+  var sys='Sos ALFARO evaluador experto en ventas de Inverfin.\nProducto: '+s.name+'.\nConversación: '+JSON.stringify(conv)+'\nRespondé SOLO con JSON sin markdown:\n{"apertura":<0-20>,"descubrimiento":<0-20>,"propuesta":<0-20>,"objeciones":<0-25>,"cierre":<0-15>,"total":<0-100>,"feedback":"<2 oraciones motivadoras>"}';
+  api([{role:'user',content:'Evaluá.'}],sys)
     .then(function(raw){
-      var ev;
-      try{ev=JSON.parse(raw.replace(/```json|```/g,'').trim());}
-      catch(e){ev={apertura:10,descubrimiento:10,propuesta:10,objeciones:12,cierre:8,total:50,feedback:'Seguí entrenando con ALFARO.'};}
+      var ev;try{ev=JSON.parse(raw.replace(/```json|```/g,'').trim());}catch(e){ev={apertura:10,descubrimiento:10,propuesta:10,objeciones:12,cierre:8,total:50,feedback:'Seguí entrenando con ALFARO.'};}
       scores.push(ev.total);
       var face=ev.total>=80?'🙂':ev.total>=60?'😐':'😞';
-      addMsg('<div class="score-bar">'
-        +'<div class="score-title">📊 ALFARO evalúa — Escenario '+(currentScenIdx+1)+'</div>'
-        +'<div class="score-row"><span>Apertura y empatía</span><span class="score-num">'+ev.apertura+'/20</span></div>'
-        +'<div class="score-row"><span>Descubrimiento de necesidades</span><span class="score-num">'+ev.descubrimiento+'/20</span></div>'
-        +'<div class="score-row"><span>Propuesta de valor</span><span class="score-num">'+ev.propuesta+'/20</span></div>'
-        +'<div class="score-row"><span>Manejo de objeciones</span><span class="score-num">'+ev.objeciones+'/25</span></div>'
-        +'<div class="score-row"><span>Cierre y siguiente paso</span><span class="score-num">'+ev.cierre+'/15</span></div>'
-        +'<div class="score-row"><span><strong>Total</strong></span><span class="score-num"><strong>'+ev.total+'/100</strong></span></div>'
-        +'<div class="face">'+face+'</div>'
-        +'<div style="color:#aaa;font-size:.75rem;text-align:center;margin-top:4px">💬 '+ev.feedback+'</div>'
-        +'</div>','eval');
-      loading=false;currentScenIdx++;
-      if(currentScenIdx<3){addMsg('➡️ Escenario '+(currentScenIdx+1)+'/3...','system');setTimeout(startScenario,1400);}
-      else endSession();
-      updateUI();
-    }).catch(function(e){addMsg('⚠️ Error evaluando: '+e.message,'system');loading=false;updateUI();});
+      addMsg('<div class="sbar"><div class="stitle">📊 ALFARO evalúa — Escenario '+(scIdx+1)+'</div><div class="srow"><span>Apertura y empatía</span><span class="snum">'+ev.apertura+'/20</span></div><div class="srow"><span>Descubrimiento</span><span class="snum">'+ev.descubrimiento+'/20</span></div><div class="srow"><span>Propuesta de valor</span><span class="snum">'+ev.propuesta+'/20</span></div><div class="srow"><span>Manejo de objeciones</span><span class="snum">'+ev.objeciones+'/25</span></div><div class="srow"><span>Cierre</span><span class="snum">'+ev.cierre+'/15</span></div><div class="srow"><span><b>Total</b></span><span class="snum"><b>'+ev.total+'/100</b></span></div><div class="face">'+face+'</div><div style="color:#aaa;font-size:.75rem;text-align:center;margin-top:4px">💬 '+ev.feedback+'</div></div>','me');
+      loading=false;scIdx++;
+      if(scIdx<3){addMsg('➡️ Escenario '+(scIdx+1)+'/3...','ms');setTimeout(nextScen,1400);}
+      else endS();
+      updUI();
+    }).catch(function(e){addMsg('⚠️ Error: '+e.message,'ms');loading=false;updUI();});
 }
 
-function endSession(){
+function endS(){
   var avg=Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);
   var face=avg>=80?'🙂':avg>=60?'😐':'😞';
-  var cat=avg>=80?'¡Excelente! Sos un crack en ventas':avg>=60?'Bien, podés mejorar aún más':'¡A entrenar más con ALFARO!';
-  addMsg('<div class="score-bar"><div class="score-title">🏆 Resultado Final</div>'
-    +scores.map(function(s,i){return '<div class="score-row"><span>Escenario '+(i+1)+'</span><span class="score-num">'+s+'/100</span></div>';}).join('')
-    +'<div class="score-row"><span><strong>Promedio</strong></span><span class="score-num"><strong>'+avg+'/100</strong></span></div>'
-    +'<div class="face">'+face+'</div>'
-    +'<div style="color:#ff7a00;font-size:.85rem;text-align:center;font-weight:bold">'+cat+'</div>'
-    +'</div>','eval');
-  addMsg('✅ ¡Presioná "Iniciar sesión" para una nueva ronda!','system');
-  setAvatar('idle');sessionActive=false;
-  document.getElementById('product-card').style.display='none';
-  setReplyEnabled(false);updateUI();
+  var cat=avg>=80?'¡Excelente! Sos un crack':avg>=60?'Bien, podés mejorar más':'¡A entrenar más!';
+  addMsg('<div class="sbar"><div class="stitle">🏆 Resultado Final</div>'+scores.map(function(s,i){return'<div class="srow"><span>Escenario '+(i+1)+'</span><span class="snum">'+s+'/100</span></div>';}).join('')+'<div class="srow"><span><b>Promedio</b></span><span class="snum"><b>'+avg+'/100</b></span></div><div class="face">'+face+'</div><div style="color:#ff7a00;font-size:.85rem;text-align:center;font-weight:bold">'+cat+'</div></div>','me');
+  addMsg('✅ ¡Presioná "Iniciar sesión" para nueva ronda!','ms');
+  active=false;setTurn(false);
+  document.getElementById('pc').style.display='none';updUI();
 }
 
-function closeScenario(){if(!sessionActive||loading)return;addMsg('⏭ Cerrando escenario...','system');evaluateScenario();}
-
-function resetSession(){
-  sessionActive=false;currentScenIdx=0;currentQIdx=0;currentInteraction=0;
-  scenConv=[];scores=[];loading=false;
-  window.speechSynthesis.cancel();stopMouth();
-  setAvatar('idle');updateUI();
-  document.getElementById('chat-box').innerHTML='';
-  addMsg('🔄 Reiniciado. ¡Presioná Iniciar sesión!','system');
-  document.getElementById('product-card').style.display='none';
-  setReplyEnabled(false);
+function closeS(){if(!active||loading)return;addMsg('⏭ Cerrando...','ms');evalS();}
+function resetS(){
+  active=false;scIdx=0;qIdx=0;inter=0;conv=[];scores=[];loading=false;
+  window.speechSynthesis.cancel();stopM();stopMic();
+  setTurn(false);updUI();
+  document.getElementById('chat').innerHTML='';
+  addMsg('🔄 Reiniciado. ¡Presioná Iniciar sesión!','ms');
+  document.getElementById('pc').style.display='none';
 }
-
-document.getElementById('seller-input').addEventListener('keydown',function(e){
-  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendSeller();}
-});
 </script>
 </body>
 </html>
